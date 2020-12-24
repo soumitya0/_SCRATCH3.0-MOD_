@@ -350,8 +350,8 @@ class BISOFT_HUMANOID {
         return {
             id: "humanoid",
             name: "HUMANOID",
-            // color1: "#575C66",
-            // color2: "#575C66",
+            color1: "#f76a8c",
+            color2: "#f76a8c",
 
             menuIconURI: HUMANOIDImg,
             blockIconURI: HUMANOIDImg,

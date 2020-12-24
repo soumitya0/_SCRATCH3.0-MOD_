@@ -261,8 +261,8 @@ class BISOFT_ACE {
         return {
             id: "ace",
             name: "ACE",
-            // color1: "#FFE455",
-            // color2: "#FFE455",
+            color1: "#03506f",
+            color2: "#03506f",
 
             menuIconURI: ACEImg,
             blockIconURI: ACEImg,
