@@ -906,7 +906,7 @@ class Blocks {
      * @param {!string} blockId Id of block to delete
      */
     deleteBlock(blockId) {
-        console.log("deleteBlock WORKISPACE 951475358");
+        console.log("deleteBlock process............. ");
         // @todo In runtime, stop threads running on this script.
 
         // Get block
@@ -1360,6 +1360,8 @@ class Blocks {
      * @param {?string} topBlockId ID of block that starts the script.
      */
     _deleteScript(topBlockId) {
+        console.log("_deleteScript");
+
         const i = this._scripts.indexOf(topBlockId);
         if (i > -1) this._scripts.splice(i, 1);
         // Update `topLevel` property on the top block.

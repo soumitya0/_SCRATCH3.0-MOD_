@@ -66,18 +66,38 @@ let array1 = [
         value: "I2",
     },
 ];
-const dynamicMenuData = (value) => {
-    console.log("working.....2250");
 
-    console.log("ALL_PORTS_MENU...", value);
-    if (value != "undefined") {
-        console.log("ALL_PORTS_MENU i am checkinh undefine.........");
-        array1 = array1.filter((data, index) => {
+let array2 = [];
+
+let previousValue;
+
+const dynamicMenuData = (value) => {
+    console.log("dynamicMenuData .....2250");
+
+    console.log("length value:", value.length);
+
+    console.log("dynamicMenuData VALUE...", value);
+    if (typeof value != "undefined") {
+        console.log("dynamicMenuData VALUE i am checkinh undefine.........");
+
+        array2 = array1.filter((data, index) => {
             let mainData = data.value;
-            return mainData != value;
+
+            if (value.length > 2) {
+                return mainData != previousValue;
+            } else {
+                previousValue = value;
+                return mainData != value;
+            }
         });
+
+        console.log("if array2:", array2);
+
+        return array2;
+    } else {
+        console.log("else ..............");
+        return array1;
     }
-    return array1;
 };
 
 module.exports = dynamicMenuData;

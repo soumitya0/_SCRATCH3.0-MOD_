@@ -1264,9 +1264,14 @@ class VirtualMachine extends EventEmitter {
     blockListener(e) {
         // worke block id
 
+        //here we are sending the selected port value
         this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue);
-        console.log(e);
+
+        console.log("blockListerner: ", e);
+
+        // delete block is function that delect block
         this.Block.deleteBlock(e.blockId);
+
         if (this.editingTarget) {
             this.editingTarget.blocks.blocklyListen(e);
         }

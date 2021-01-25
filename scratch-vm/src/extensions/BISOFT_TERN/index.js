@@ -268,6 +268,8 @@ class BISOFT_TERN {
     }
 
     ALL_PORTS_MENU(value) {
+        console.log("Inside All_PORTS_MENU");
+
         console.log("ALL_PORTS_MENU...", value);
 
         let array1 = dynamicMenu(value);
