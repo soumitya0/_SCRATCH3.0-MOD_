@@ -7,10 +7,7 @@ let array1 = [
         text: "A2",
         value: "A2",
     },
-    {
-        text: "B1",
-        value: "B1",
-    },
+
     {
         text: "B2",
         value: "B2",
@@ -39,10 +36,7 @@ let array1 = [
         text: "E2",
         value: "E2",
     },
-    {
-        text: "F1",
-        value: "F1",
-    },
+
     {
         text: "F2",
         value: "F2",
