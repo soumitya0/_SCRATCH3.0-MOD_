@@ -74,7 +74,7 @@ let previousValue;
 const dynamicMenuData = (value) => {
     console.log("dynamicMenuData .....2250");
 
-    console.log("length value:", value.length);
+    // console.log("length value:", value.length);
 
     console.log("dynamicMenuData VALUE...", value);
     if (typeof value != "undefined") {
@@ -83,7 +83,7 @@ const dynamicMenuData = (value) => {
         array2 = array1.filter((data, index) => {
             let mainData = data.value;
 
-            if (value.length > 2) {
+            if (value != null && value.length > 2) {
                 return mainData != previousValue;
             } else {
                 previousValue = value;

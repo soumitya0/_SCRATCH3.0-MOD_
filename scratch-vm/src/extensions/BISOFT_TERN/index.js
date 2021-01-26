@@ -21,6 +21,17 @@ class BISOFT_TERN {
 
     // A-I  I-M   OPTION_1
 
+    ALL_PORTS_MENU(value) {
+        console.log("Inside All_PORTS_MENU");
+
+        console.log("ALL_PORTS_MENU...", value);
+
+        let array1 = dynamicMenu(value);
+
+        console.log(array1, "ALL_PORTS_MENU................");
+        return array1;
+    }
+
     //A-I    OPTION_7
     get CHECK_LOGIC_PORTS_MENU() {
         return [
@@ -265,17 +276,6 @@ class BISOFT_TERN {
                 value: "gesture",
             },
         ];
-    }
-
-    ALL_PORTS_MENU(value) {
-        console.log("Inside All_PORTS_MENU");
-
-        console.log("ALL_PORTS_MENU...", value);
-
-        let array1 = dynamicMenu(value);
-
-        console.log(array1, "ALL_PORTS_MENU................");
-        return array1;
     }
 
     setPortsLogic(args, utils) {

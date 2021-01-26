@@ -5,76 +5,42 @@ let portTypeSpace = [];
 
 let uniqueChars;
 
-let myObj;
-
 let finalByteData;
+
+let globalObj;
 
 const getByteData = (port, portType) => {
     // step-1
     // i have push into array
+
     dataSpace.push(port);
     portTypeSpace.push(portType);
 
-    myObj = {
+    let myObj = {
         ...myObj,
         [port]: `${portType}`,
     };
-    console.log(dataSpace.length);
 
-    // step-2
-    // then  check if dataSpace[0] == dataSpace[dataSpace.length - 1] i.e  [a1,a2,b1,a1] a1 == a1 then empty arr and push
-    if (dataSpace[0] == dataSpace[dataSpace.length - 1]) {
-        console.log("yes");
-        dataSpace = [];
-        portTypeSpace = [];
-        myObj = {};
+    console.log("MY_OBJ:", myObj);
 
-        dataSpace.push(port);
-        portTypeSpace.push(portType);
+    var oldItems = JSON.parse(sessionStorage.getItem("myObj"));
 
-        myObj = {
-            [port]: `${portType}`,
-        };
-    }
+    console.log(oldItems);
+    console.log(typeof oldItems);
 
-    // step-3
-    // remove single and add dubble [a1,a2,b1,a2,b1] = new push arr [a2,b1] because they are dubble and remve a1 because its is single
-    uniqueChars = dataSpace.filter((c, index) => {
-        if (dataSpace.indexOf(c) != index) {
-            console.log("uniqueChar works ..");
-            // console.log(c, "yes");
-            dataSpace = [];
-            portTypeSpace = [];
-            myObj = {};
+    oldItems.push(myObj);
 
-            dataSpace.push(c);
-            portTypeSpace.push(portType);
+    sessionStorage.setItem("myObj", JSON.stringify(oldItems));
 
-            myObj = {
-                ...myObj,
-                [port]: `${portType}`,
-            };
-        } else {
-            // console.log("no unique");
-            // console.log(c, "no");
-        }
-    });
-
-    console.log(dataSpace, "dataSpace");
-    sessionStorage.setItem("selectedPortTern", JSON.stringify(dataSpace));
-    console.log(
-        JSON.parse(sessionStorage.getItem("selectedPortTern")),
-        "sessionStorage ........"
-    );
-    console.log(portTypeSpace, "portTypeSpace");
-    console.log(myObj, "myObj");
-
-    console.log(uniqueChars, "uniqueChars");
-
-    generateByteData(myObj);
+    generateByteData();
 };
 
-generateByteData = (myObj) => {
+generateByteData = () => {
+    let StackData = JSON.parse(sessionStorage.getItem("myObj"));
+
+    console.log("generateByteData runing .................");
+
+    console.log(StackData);
     let bytesObject = {
         A1: "O",
         A2: "O",
@@ -94,28 +60,55 @@ generateByteData = (myObj) => {
         H2: "O",
         I1: "O",
         I2: "O",
+        M1: "O",
+        M2: "O",
+        M3: "O",
+        M4: "O",
     };
 
-    console.log("generateByteData runing .................");
-    console.log(myObj);
+    StackData.map((data, index) => {
+        // console.log(data);
 
-    for (const [key, value] of Object.entries(myObj)) {
-        switch (value) {
+        console.log("KEY: ", Object.keys(data)[0]);
+        console.log("Value: ", Object.values(data)[0]);
+
+        switch (Object.values(data)[0]) {
             case "DIGITAL_OUTPUT": {
-                bytesObject[key] = "CHANGE TO O";
+                bytesObject[Object.keys(data)[0]] = "CHANGE TO O";
                 break;
             }
             case "PWM": {
-                bytesObject[key] = "P";
+                bytesObject[Object.keys(data)[0]] = "P";
                 break;
             }
         }
-    }
+    });
+
+    // console.log(StackData);
+
+    // for (const [key, value] of Object.entries(StackData)) {
+    //     console.log("KEY: ", Object.keys(value));
+    //     console.log("Value: ", Object.values(value));
+
+    //     // switch (value) {
+    //     //     case "DIGITAL_OUTPUT": {
+    //     //         bytesObject[key] = "CHANGE TO O";
+    //     //         break;
+    //     //     }
+    //     //     case "PWM": {
+    //     //         bytesObject[key] = "P";
+    //     //         break;
+    //     //     }
+    //     // }
+    // }
 
     console.log(bytesObject, "bytesObject ....................");
 
-    finalByteData = identifierBytesData.concat(Object.values(bytesObject));
-    console.log(finalByteData, "finally Data .........................");
+    // finalByteData = identifierBytesData.concat(
+    //     Object.values(bytesObject),
+    //     Array(37).fill("O")
+    // );
+    // console.log(finalByteData, "finally Data .........................");
 };
 
 module.exports = getByteData;

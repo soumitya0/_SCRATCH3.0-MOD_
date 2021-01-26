@@ -1270,7 +1270,21 @@ class VirtualMachine extends EventEmitter {
         console.log("blockListerner: ", e);
 
         // delete block is function that delect block
+
         this.Block.deleteBlock(e.blockId);
+
+        if (e.element == "stackclick") {
+            console.log("STACK CLICKS ...");
+
+            var student1 = [];
+
+            sessionStorage.setItem("myObj", JSON.stringify(student1));
+            // sessionStorage.clear();
+        }
+
+        if (e.element == "field") {
+            sessionStorage.removeItem("myObj");
+        }
 
         if (this.editingTarget) {
             this.editingTarget.blocks.blocklyListen(e);
@@ -1302,6 +1316,7 @@ class VirtualMachine extends EventEmitter {
      * @param {!Blockly.Event} e Any Blockly event.
      */
     variableListener(e) {
+        console.log("variableListener: ", e);
         // Filter events by type, since blocks only needs to listen to these
         // var events.
         if (["var_create", "var_rename", "var_delete"].indexOf(e.type) !== -1) {
