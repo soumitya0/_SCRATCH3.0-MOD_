@@ -84,31 +84,13 @@ generateByteData = () => {
         }
     });
 
-    // console.log(StackData);
-
-    // for (const [key, value] of Object.entries(StackData)) {
-    //     console.log("KEY: ", Object.keys(value));
-    //     console.log("Value: ", Object.values(value));
-
-    //     // switch (value) {
-    //     //     case "DIGITAL_OUTPUT": {
-    //     //         bytesObject[key] = "CHANGE TO O";
-    //     //         break;
-    //     //     }
-    //     //     case "PWM": {
-    //     //         bytesObject[key] = "P";
-    //     //         break;
-    //     //     }
-    //     // }
-    // }
-
     console.log(bytesObject, "bytesObject ....................");
 
-    // finalByteData = identifierBytesData.concat(
-    //     Object.values(bytesObject),
-    //     Array(37).fill("O")
-    // );
-    // console.log(finalByteData, "finally Data .........................");
+    finalByteData = identifierBytesData.concat(
+        Object.values(bytesObject),
+        Array(37).fill("O")
+    );
+    console.log(finalByteData, "finally Data .........................");
 };
 
 module.exports = getByteData;
