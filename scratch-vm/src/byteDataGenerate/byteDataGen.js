@@ -85,6 +85,18 @@ generateByteData = () => {
                 bytesObject[Object.keys(data)[0]] = "S";
                 break;
             }
+            case "M1&M2": {
+                bytesObject[Object.keys(data)[0]] = "P";
+                break;
+            }
+            case "LeftMotor": {
+                bytesObject[Object.keys(data)[0]] = "P";
+                break;
+            }
+            case "RightMotor": {
+                bytesObject[Object.keys(data)[0]] = "P";
+                break;
+            }
         }
     });
 

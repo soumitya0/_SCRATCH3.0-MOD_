@@ -794,6 +794,7 @@ class VirtualMachine extends EventEmitter {
      * @return {?function} A function to restore the deleted costume, or null,
      * if no costume was deleted.
      */
+
     deleteCostume(costumeIndex) {
         const deletedCostume = this.editingTarget.deleteCostume(costumeIndex);
         if (deletedCostume) {
@@ -1265,6 +1266,57 @@ class VirtualMachine extends EventEmitter {
         // worke block id
 
         console.log("Newval", e.newValue);
+        console.log("name", e.name);
+
+        if (e.oldXml) {
+            console.log(e.oldXml);
+        }
+
+        if (typeof e.name != "undefined") {
+            let sessionData = JSON.parse(
+                sessionStorage.getItem("blockOnWorkSpace")
+            );
+
+            sessionData.push({
+                blockId: e.blockId,
+                blockName: e.name,
+            });
+
+            console.log("BLOCKABCD change oldItems", sessionData);
+
+            let jsonObject = sessionData.map(JSON.stringify);
+
+            console.log(jsonObject);
+
+            let uniqueSet = new Set(jsonObject);
+
+            console.log(uniqueSet);
+
+            uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+
+            console.log(sessionData, "BLOCKABCD change");
+
+            sessionStorage.setItem(
+                "blockOnWorkSpace",
+                JSON.stringify(uniqueArray)
+            );
+
+            this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
+
+            this.BISOFT_TERN.BRIGHTNESS_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            this.BISOFT_TERN.SERVO_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+        }
 
         let element;
         if (typeof e.element != "undefined") {
@@ -1272,11 +1324,6 @@ class VirtualMachine extends EventEmitter {
         }
 
         //here we are sending the selected port value
-        this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
-
-        this.BISOFT_TERN.BRIGHTNESS_PORTS(e.newValue, e.name, e.element);
-
-        this.BISOFT_TERN.SERVO_PORTS(e.newValue, e.name, e.element);
 
         console.log("blockListerner: ", e);
 
@@ -1317,6 +1364,8 @@ class VirtualMachine extends EventEmitter {
     monitorBlockListener(e) {
         // Filter events by type, since monitor blocks only need to listen to these events.
         // Monitor blocks shouldn't be destroyed when flyout blocks are deleted.
+
+        console.log("monitorBlockListener : ", e);
         if (["create", "change"].indexOf(e.type) !== -1) {
             this.runtime.monitorBlocks.blocklyListen(e);
         }

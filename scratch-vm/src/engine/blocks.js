@@ -32,6 +32,7 @@ class Blocks {
          * @type {Object.<string, Object>}
          */
         this._blocks = {};
+        console.log("All blocks in the workspace", this._blocks);
 
         /**
          * All top-level scripts in the workspace.
@@ -114,6 +115,7 @@ class Blocks {
      * @return {?object} Metadata about the block, if it exists.
      */
     getBlock(blockId) {
+        console.log("blockId", blockId);
         return this._blocks[blockId];
     }
 
@@ -326,15 +328,9 @@ class Blocks {
 
         // Block create/update/destroy
         switch (e.type) {
-            case "create": {
-                const newBlocks = adapter(e);
-                // A create event can create many blocks. Add them all.
-                for (let i = 0; i < newBlocks.length; i++) {
-                    this.createBlock(newBlocks[i]);
-                }
-                break;
-            }
             case "change":
+                console.log("BLOCKABCD change: ", e);
+
                 this.changeBlock({
                     id: e.blockId,
                     element: e.element,
@@ -342,7 +338,20 @@ class Blocks {
                     value: e.newValue,
                 });
                 break;
+
+            case "create": {
+                console.log("BLOCKABC CREATE: ", e);
+
+                const newBlocks = adapter(e);
+                // A create event can create many blocks. Add them all.
+                for (let i = 0; i < newBlocks.length; i++) {
+                    this.createBlock(newBlocks[i]);
+                }
+                break;
+            }
             case "move":
+                console.log("BLOCKABC MOVE: ", e);
+
                 this.moveBlock({
                     id: e.blockId,
                     oldParent: e.oldParentId,
@@ -353,10 +362,33 @@ class Blocks {
                 });
                 break;
             case "dragOutside":
+                console.log("BLOCKABC dragOutside: ", e);
+
                 this.runtime.emitBlockDragUpdate(e.isOutside);
                 break;
             case "endDrag":
+                console.log("BLOCKABC endDrag: ", e);
+
                 this.runtime.emitBlockDragUpdate(false /* areBlocksOverGui */);
+
+                let oldItems = JSON.parse(
+                    sessionStorage.getItem("blocksInPresentWorkSpace")
+                );
+
+                oldItems.push(e.blockId);
+
+                console.log("BLOCKABC endDrag oldItems", oldItems);
+
+                oldItems = oldItems.filter(function (item, index) {
+                    return oldItems.indexOf(item) === index;
+                });
+
+                console.log(oldItems, "NEW DATA BLOCKABC endDrag");
+
+                sessionStorage.setItem(
+                    "blocksInPresentWorkSpace",
+                    JSON.stringify(oldItems)
+                );
 
                 // Drag blocks onto another sprite
                 if (e.isOutside) {
@@ -365,6 +397,54 @@ class Blocks {
                 }
                 break;
             case "delete":
+                console.log("deleteBlock process................ ");
+                console.log("BLOCKABCD delete: ", e);
+
+                let sessionItems = JSON.parse(
+                    sessionStorage.getItem("blocksInPresentWorkSpace")
+                );
+
+                sessionItems = sessionItems.filter(function (item) {
+                    return item !== e.blockId;
+                });
+
+                console.log(sessionItems, "NEW DATA BLOCKABC delete");
+
+                sessionStorage.setItem(
+                    "blocksInPresentWorkSpace",
+                    JSON.stringify(sessionItems)
+                );
+
+                let sessionblockOnWorkSpace = JSON.parse(
+                    sessionStorage.getItem("blockOnWorkSpace")
+                );
+
+                sessionblockOnWorkSpace = sessionblockOnWorkSpace.filter(
+                    function (item) {
+                        return item.blockId !== e.blockId;
+                    }
+                );
+
+                console.log(
+                    sessionblockOnWorkSpace,
+                    "NEW DATA BLOCKABC delete"
+                );
+
+                sessionStorage.setItem(
+                    "blockOnWorkSpace",
+                    JSON.stringify(sessionblockOnWorkSpace)
+                );
+
+                // console.log("DELETED ID sessionItems: ", sessionItems);
+
+                // sessionItems.map((data, index) => {
+                //     return data != blockId;
+                // });
+
+                // console.log("DELETED ID: ", sessionItems);
+
+                // console.log("DELETe BLOCK ID: ", e.blockId);
+
                 // Don't accept delete events for missing blocks,
                 // or shadow blocks being obscured.
                 if (
@@ -379,6 +459,7 @@ class Blocks {
                 }
                 this.deleteBlock(e.blockId);
                 break;
+
             case "var_create":
                 // Check if the variable being created is global or local
                 // If local, create a local var on the current editing target, as long
@@ -526,6 +607,8 @@ class Blocks {
                 }
                 break;
             case "comment_move":
+                console.log("BLOCKABC comment_move: ", e);
+
                 if (this.runtime.getEditingTarget()) {
                     const currTarget = this.runtime.getEditingTarget();
                     if (
@@ -906,7 +989,6 @@ class Blocks {
      * @param {!string} blockId Id of block to delete
      */
     deleteBlock(blockId) {
-        console.log("deleteBlock process............. ");
         // @todo In runtime, stop threads running on this script.
 
         // Get block

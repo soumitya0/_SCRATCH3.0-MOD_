@@ -6,24 +6,13 @@ const log = require("../../util/log");
 const getByteData = require("../../byteDataGenerate/byteDataGen");
 // eslint-disable-next-line max-len
 
-const dynamicMenu = require("../../DynamicMenu/dynamicMenu");
+// const dynamicMenu = require("../../DynamicMenu/dynamicMenu");
 /**
  * Url of icon to be displayed in the toolbox menu for the extension category.
  * @type {string}
  */
 // eslint-disable-next-line max-len
 const ternImg = require("./tern.png");
-
-let BRIGHTNESS_PORTS_Array = [
-    {
-        text: "B1",
-        value: "B1",
-    },
-    {
-        text: "F1",
-        value: "F1",
-    },
-];
 
 let SERVO_PORTS_Array = [
     {
@@ -36,74 +25,20 @@ let SERVO_PORTS_Array = [
     },
 ];
 
-let ALL_PORTS_MENU_Array = [
+let BRIGHTNESS_PORTS_Array = [
     {
-        text: "A1",
-        value: "A1",
+        text: "B1",
+        value: "B1",
     },
     {
-        text: "A2",
-        value: "A2",
-    },
-
-    {
-        text: "B2",
-        value: "B2",
-    },
-    {
-        text: "C1",
-        value: "C1",
-    },
-    {
-        text: "C2",
-        value: "C2",
-    },
-    {
-        text: "D1",
-        value: "D1",
-    },
-    {
-        text: "D2",
-        value: "D2",
-    },
-    {
-        text: "E1",
-        value: "E1",
-    },
-    {
-        text: "E2",
-        value: "E2",
-    },
-
-    {
-        text: "F2",
-        value: "F2",
-    },
-    {
-        text: "G1",
-        value: "G1",
-    },
-    {
-        text: "G2",
-        value: "G2",
-    },
-    {
-        text: "H1",
-        value: "H1",
-    },
-    {
-        text: "H2",
-        value: "H2",
-    },
-    {
-        text: "I1",
-        value: "I1",
-    },
-    {
-        text: "I2",
-        value: "I2",
+        text: "F1",
+        value: "F1",
     },
 ];
+
+// sessionStorage.setItem("blocksInPresentWorkSpace", JSON.stringify([]));
+
+sessionStorage.setItem("blockOnWorkSpace", JSON.stringify([]));
 
 class BISOFT_TERN {
     constructor(runtime) {
@@ -113,159 +48,250 @@ class BISOFT_TERN {
     // A-I  I-M   OPTION_1
 
     ALL_PORTS_MENU(value, name) {
-        if (name === "setPortsLogic") {
-            console.log("INSIDE : ALL_PORTS_MENU. ");
-            console.log("SELECTED MENU: ", value);
-
-            let array1 = dynamicMenu.dynamicMenuDataSetPortLogic(value);
-
-            console.log(array1, "ALL_PORTS_MENU................");
-
-            ALL_PORTS_MENU_Array = [];
-            array1.map((data, index) => {
-                // console.log("MAP FUNCTION", data);
-                ALL_PORTS_MENU_Array.push(data);
-            });
-
-            // return array1;
-        } else {
-            return ALL_PORTS_MENU_Array;
+        if (typeof name != "undefined" && name == "setPortsLogic") {
+            // blockOnWorkSpace.push({
+            //     blockId: name,
+            // });
         }
+
+        let ALL_PORTS_MENU_Array = [
+            {
+                text: "A1",
+                value: "A1",
+            },
+            {
+                text: "A2",
+                value: "A2",
+            },
+
+            {
+                text: "B2",
+                value: "B2",
+            },
+            {
+                text: "C1",
+                value: "C1",
+            },
+            {
+                text: "C2",
+                value: "C2",
+            },
+            {
+                text: "D1",
+                value: "D1",
+            },
+            {
+                text: "D2",
+                value: "D2",
+            },
+            {
+                text: "E1",
+                value: "E1",
+            },
+            {
+                text: "E2",
+                value: "E2",
+            },
+
+            {
+                text: "F2",
+                value: "F2",
+            },
+            {
+                text: "G1",
+                value: "G1",
+            },
+            {
+                text: "G2",
+                value: "G2",
+            },
+            {
+                text: "H1",
+                value: "H1",
+            },
+            {
+                text: "H2",
+                value: "H2",
+            },
+            {
+                text: "I1",
+                value: "I1",
+            },
+            {
+                text: "I2",
+                value: "I2",
+            },
+        ];
+
+        return ALL_PORTS_MENU_Array;
+
+        // if (name === "setPortsLogic") {
+        //     console.log("INSIDE : ALL_PORTS_MENU. ");
+        //     console.log("SELECTED MENU: ", value);
+
+        //     let array1 = dynamicMenu.dynamicMenuDataSetPortLogic(value);
+
+        //     console.log(array1, "ALL_PORTS_MENU................");
+
+        //     ALL_PORTS_MENU_Array = [];
+        //     array1.map((data, index) => {
+        //         // console.log("MAP FUNCTION", data);
+        //         ALL_PORTS_MENU_Array.push(data);
+        //     });
+
+        //     // return array1;
+        // } else {
+        //     return ALL_PORTS_MENU_Array;
+        // }
     }
 
-    BRIGHTNESS_PORTS(value, name) {
-        if (name == "setBrighnessPorts") {
-            console.log("INSIDE : BRIGHTNESS_PORTS. ");
-            console.log("SELECTED MENU: ", value);
+    BRIGHTNESS_PORTS(value, name, element, blockId) {
+        console.log("WELCOME TO BRIGHTNESS_PORTS");
 
-            let BRIGHTNESS_PORTS_Array2 = dynamicMenu.dynamicMenuData_BRIGHTNESS_PORTS(
-                value
-            );
+        let sessionblockOnWorkSpaceData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
 
-            console.log("RETURN ARRAY BRIGTH : ", BRIGHTNESS_PORTS_Array2);
-            console.log("YES WORKING");
+        console.log("sessionblockOnWorkSpace", sessionblockOnWorkSpaceData);
 
-            BRIGHTNESS_PORTS_Array = [];
-            BRIGHTNESS_PORTS_Array2.map((data, index) => {
-                // console.log("MAP FUNCTION", data);
-                BRIGHTNESS_PORTS_Array.push(data);
-            });
+        let objCheck = sessionblockOnWorkSpaceData.find(
+            (data) => data.blockName === "setServoMotorPorts"
+        );
 
-            console.log("DATA BRIGHTNESS_PORTS: ", BRIGHTNESS_PORTS_Array);
-        } else {
-            console.log("B  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
-
-            console.log("B  SERVO_PART: ", SERVO_PORTS_Array);
-            if (
-                BRIGHTNESS_PORTS_Array.length == 1 &&
-                SERVO_PORTS_Array.length == 1 &&
-                BRIGHTNESS_PORTS_Array[0].value == "B1" &&
-                SERVO_PORTS_Array[0].value == "B1"
-            ) {
-                alert("B Not Be change if you want please Remove this blocks");
-
-                BRIGHTNESS_PORTS_Array = [
-                    {
-                        text: "F1",
-                        value: "F1",
-                    },
-                ];
-            }
-            console.log("WORKING: ELSE ");
-
-            console.log(BRIGHTNESS_PORTS_Array);
-
-            console.log("B  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
-
-            console.log("B  SERVO_PART: ", SERVO_PORTS_Array);
-
-            return BRIGHTNESS_PORTS_Array;
+        if (typeof objCheck == "undefined") {
+            BRIGHTNESS_PORTS_Array = [
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "F1",
+                    value: "F1",
+                },
+            ];
         }
+
+        // let sessionItems = JSON.parse(
+        //     sessionStorage.getItem("blocksInPresentWorkSpace")
+        // );
+
+        // if (sessionItems.length == 0) {
+        //     BRIGHTNESS_PORTS_Array = [
+        //         {
+        //             text: "B1",
+        //             value: "B1",
+        //         },
+        //         {
+        //             text: "F1",
+        //             value: "F1",
+        //         },
+        //     ];
+        // }
+
+        if (typeof name != "undefined" && name == "setBrighnessPorts") {
+            if (value == "B1") {
+                console.log("IF -> B1");
+                SERVO_PORTS_Array = [];
+                SERVO_PORTS_Array.push({
+                    text: "F1",
+                    value: "F1",
+                });
+            }
+            if (value == "F1") {
+                console.log("IF -> F1");
+                SERVO_PORTS_Array = [];
+                SERVO_PORTS_Array.push({
+                    text: "B1",
+                    value: "B1",
+                });
+            }
+        }
+
+        console.log("BRIGHTNESS_PORTS name:", name);
+
+        console.log("BRIGHTNESS_PORTS element:", element);
+
+        console.log("BRIGHTNESS_PORTS blockId:", blockId);
+
+        // console.log("SERVO_PORTS_Array FORM BRIGTHNESS: ", SERVO_PORTS_Array);
+
+        console.log("BRIGHTNESS_PORTS_Array: ", BRIGHTNESS_PORTS_Array);
+
+        return BRIGHTNESS_PORTS_Array;
     }
 
-    SERVO_PORTS(value, name, element) {
-        if (name === "setServoMotorPorts") {
-            console.log("INSIDE : SERVO_PORTS. ");
-            console.log("SELECTED MENU: ", value);
+    SERVO_PORTS(value, name, element, blockId) {
+        console.log("WELCOME TO SERVO_PORTS");
 
-            let SERVO_PORTS_Array2 = dynamicMenu.dynamicMenuData_SERVO_PORTS(
-                value
-            );
+        let NosetBrighnessPorts = "false";
 
-            console.log("RETURN ARRAY SERVO_PORT : ", SERVO_PORTS_Array2);
-            console.log("YES WORKING SERVO_PORT");
+        // let sessionItems = JSON.parse(
+        //     sessionStorage.getItem("blocksInPresentWorkSpace")
+        // );
 
-            SERVO_PORTS_Array = [];
-            SERVO_PORTS_Array2.map((data, index) => {
-                // console.log("MAP FUNCTION", data);
-                SERVO_PORTS_Array.push(data);
-            });
+        let sessionblockOnWorkSpace = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
 
-            console.log(" if ELEMENTS: ", element);
+        console.log("sessionblockOnWorkSpace", sessionblockOnWorkSpace);
 
-            console.log("DATA SERVO_PORTS: ", SERVO_PORTS_Array);
+        let objCheck = sessionblockOnWorkSpace.find(
+            (data) => data.blockName === "setBrighnessPorts"
+        );
 
-            console.log("BRIGHTNESS_and_SERVO_PORTS: ", SERVO_PORTS_Array);
-        } else {
-            console.log("SERVO_PORTS_Array: ", SERVO_PORTS_Array);
-
-            console.log("S  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
-
-            console.log("S  SERVO_PART: ", SERVO_PORTS_Array);
-
-            console.log(" if ELEMENTS: ", element);
-
-            if (
-                BRIGHTNESS_PORTS_Array.length == 1 &&
-                SERVO_PORTS_Array.length == 1 &&
-                BRIGHTNESS_PORTS_Array[0].value === "F1" &&
-                SERVO_PORTS_Array[0].value === "F1"
-            ) {
-                alert("s Not Be change if you want please Remove this blocks");
-
-                BRIGHTNESS_PORTS_Array = [
-                    {
-                        text: "B1",
-                        value: "B1",
-                    },
-                ];
-            }
-
-            // console.log("ELEMENTS: ", element);
-
-            // if (
-            //     BRIGHTNESS_PORTS_Array.length == 1 &&
-            //     SERVO_PORTS_Array.length == 1 &&
-            //     BRIGHTNESS_PORTS_Array[0].value === "F1" &&
-            //     SERVO_PORTS_Array[0].value === "F1"
-            // ) {
-            //     alert("s Not Be change if you want please Remove this blocks");
-            //     BRIGHTNESS_PORTS_Array = [
-            //         {
-            //             text: "F1",
-            //             value: "F1",
-            //         },
-            //     ];
-            // }
-
-            if (BRIGHTNESS_PORTS_Array[0].value == "B1") {
-                return [
-                    {
-                        text: "B1",
-                        value: "B1",
-                    },
-                ];
-            } else if (BRIGHTNESS_PORTS_Array[0].value == "F1") {
-                return [
-                    {
-                        text: "F1",
-                        value: "F1",
-                    },
-                ];
-            }
-
-            return SERVO_PORTS_Array;
+        if (typeof objCheck == "undefined") {
+            SERVO_PORTS_Array = [
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "F1",
+                    value: "F1",
+                },
+            ];
         }
+
+        // if (sessionItems.length == 0) {
+        //     BRIGHTNESS_PORTS_Array = [
+        //         {
+        //             text: "B1",
+        //             value: "B1",
+        //         },
+        //         {
+        //             text: "F1",
+        //             value: "F1",
+        //         },
+        //     ];
+        // }
+
+        if (typeof name != "undefined" && name == "setServoMotorPorts") {
+            if (value == "B1") {
+                console.log("SERVO_PORTS B1");
+                console.log("IF -> B1");
+                BRIGHTNESS_PORTS_Array = [];
+                BRIGHTNESS_PORTS_Array.push({
+                    text: "F1",
+                    value: "F1",
+                });
+            }
+            if (value == "F1") {
+                console.log("SERVO_PORTS F1");
+
+                BRIGHTNESS_PORTS_Array = [];
+
+                console.log("BRIGHTNESS_PORTS_Array", BRIGHTNESS_PORTS_Array);
+                BRIGHTNESS_PORTS_Array.push({
+                    text: "B1",
+                    value: "B1",
+                });
+            }
+        }
+        console.log("SERVO_PORTS blockId:", blockId);
+
+        console.log("SERVO_PORTS_Array: ", SERVO_PORTS_Array);
+
+        return SERVO_PORTS_Array;
     }
 
     //A-I    OPTION_7
@@ -495,15 +521,21 @@ class BISOFT_TERN {
     }
 
     moveMotor(args, utils) {
-        console.log("moveMotor");
+        console.log("ARGS:", args);
+        getByteData("M1", "M1&M2");
+        getByteData("M2", "M1&M2");
     }
 
     moveLeftMotor(args, utils) {
-        console.log("moveLeftMotor");
+        console.log("ARGS:", args);
+
+        getByteData("M1", "LeftMotor");
     }
 
     moveRightMotor(args, utils) {
-        console.log("moveRightMotor");
+        console.log("ARGS:", args);
+
+        getByteData("M2", "RightMotor");
     }
 
     setServoMotorFun(args, utils) {
