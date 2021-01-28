@@ -14,6 +14,97 @@ const dynamicMenu = require("../../DynamicMenu/dynamicMenu");
 // eslint-disable-next-line max-len
 const ternImg = require("./tern.png");
 
+let BRIGHTNESS_PORTS_Array = [
+    {
+        text: "B1",
+        value: "B1",
+    },
+    {
+        text: "F1",
+        value: "F1",
+    },
+];
+
+let SERVO_PORTS_Array = [
+    {
+        text: "B1",
+        value: "B1",
+    },
+    {
+        text: "F1",
+        value: "F1",
+    },
+];
+
+let ALL_PORTS_MENU_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+
+    {
+        text: "B2",
+        value: "B2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "D2",
+        value: "D2",
+    },
+    {
+        text: "E1",
+        value: "E1",
+    },
+    {
+        text: "E2",
+        value: "E2",
+    },
+
+    {
+        text: "F2",
+        value: "F2",
+    },
+    {
+        text: "G1",
+        value: "G1",
+    },
+    {
+        text: "G2",
+        value: "G2",
+    },
+    {
+        text: "H1",
+        value: "H1",
+    },
+    {
+        text: "H2",
+        value: "H2",
+    },
+    {
+        text: "I1",
+        value: "I1",
+    },
+    {
+        text: "I2",
+        value: "I2",
+    },
+];
+
 class BISOFT_TERN {
     constructor(runtime) {
         this.runtime = runtime;
@@ -21,15 +112,160 @@ class BISOFT_TERN {
 
     // A-I  I-M   OPTION_1
 
-    ALL_PORTS_MENU(value) {
-        console.log("Inside All_PORTS_MENU");
+    ALL_PORTS_MENU(value, name) {
+        if (name === "setPortsLogic") {
+            console.log("INSIDE : ALL_PORTS_MENU. ");
+            console.log("SELECTED MENU: ", value);
 
-        console.log("ALL_PORTS_MENU...", value);
+            let array1 = dynamicMenu.dynamicMenuDataSetPortLogic(value);
 
-        let array1 = dynamicMenu(value);
+            console.log(array1, "ALL_PORTS_MENU................");
 
-        console.log(array1, "ALL_PORTS_MENU................");
-        return array1;
+            ALL_PORTS_MENU_Array = [];
+            array1.map((data, index) => {
+                // console.log("MAP FUNCTION", data);
+                ALL_PORTS_MENU_Array.push(data);
+            });
+
+            // return array1;
+        } else {
+            return ALL_PORTS_MENU_Array;
+        }
+    }
+
+    BRIGHTNESS_PORTS(value, name) {
+        if (name == "setBrighnessPorts") {
+            console.log("INSIDE : BRIGHTNESS_PORTS. ");
+            console.log("SELECTED MENU: ", value);
+
+            let BRIGHTNESS_PORTS_Array2 = dynamicMenu.dynamicMenuData_BRIGHTNESS_PORTS(
+                value
+            );
+
+            console.log("RETURN ARRAY BRIGTH : ", BRIGHTNESS_PORTS_Array2);
+            console.log("YES WORKING");
+
+            BRIGHTNESS_PORTS_Array = [];
+            BRIGHTNESS_PORTS_Array2.map((data, index) => {
+                // console.log("MAP FUNCTION", data);
+                BRIGHTNESS_PORTS_Array.push(data);
+            });
+
+            console.log("DATA BRIGHTNESS_PORTS: ", BRIGHTNESS_PORTS_Array);
+        } else {
+            console.log("B  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
+
+            console.log("B  SERVO_PART: ", SERVO_PORTS_Array);
+            if (
+                BRIGHTNESS_PORTS_Array.length == 1 &&
+                SERVO_PORTS_Array.length == 1 &&
+                BRIGHTNESS_PORTS_Array[0].value == "B1" &&
+                SERVO_PORTS_Array[0].value == "B1"
+            ) {
+                alert("B Not Be change if you want please Remove this blocks");
+
+                BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "F1",
+                        value: "F1",
+                    },
+                ];
+            }
+            console.log("WORKING: ELSE ");
+
+            console.log(BRIGHTNESS_PORTS_Array);
+
+            console.log("B  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
+
+            console.log("B  SERVO_PART: ", SERVO_PORTS_Array);
+
+            return BRIGHTNESS_PORTS_Array;
+        }
+    }
+
+    SERVO_PORTS(value, name, element) {
+        if (name === "setServoMotorPorts") {
+            console.log("INSIDE : SERVO_PORTS. ");
+            console.log("SELECTED MENU: ", value);
+
+            let SERVO_PORTS_Array2 = dynamicMenu.dynamicMenuData_SERVO_PORTS(
+                value
+            );
+
+            console.log("RETURN ARRAY SERVO_PORT : ", SERVO_PORTS_Array2);
+            console.log("YES WORKING SERVO_PORT");
+
+            SERVO_PORTS_Array = [];
+            SERVO_PORTS_Array2.map((data, index) => {
+                // console.log("MAP FUNCTION", data);
+                SERVO_PORTS_Array.push(data);
+            });
+
+            console.log(" if ELEMENTS: ", element);
+
+            console.log("DATA SERVO_PORTS: ", SERVO_PORTS_Array);
+
+            console.log("BRIGHTNESS_and_SERVO_PORTS: ", SERVO_PORTS_Array);
+        } else {
+            console.log("SERVO_PORTS_Array: ", SERVO_PORTS_Array);
+
+            console.log("S  BRIGHT PART: ", BRIGHTNESS_PORTS_Array);
+
+            console.log("S  SERVO_PART: ", SERVO_PORTS_Array);
+
+            console.log(" if ELEMENTS: ", element);
+
+            if (
+                BRIGHTNESS_PORTS_Array.length == 1 &&
+                SERVO_PORTS_Array.length == 1 &&
+                BRIGHTNESS_PORTS_Array[0].value === "F1" &&
+                SERVO_PORTS_Array[0].value === "F1"
+            ) {
+                alert("s Not Be change if you want please Remove this blocks");
+
+                BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                ];
+            }
+
+            // console.log("ELEMENTS: ", element);
+
+            // if (
+            //     BRIGHTNESS_PORTS_Array.length == 1 &&
+            //     SERVO_PORTS_Array.length == 1 &&
+            //     BRIGHTNESS_PORTS_Array[0].value === "F1" &&
+            //     SERVO_PORTS_Array[0].value === "F1"
+            // ) {
+            //     alert("s Not Be change if you want please Remove this blocks");
+            //     BRIGHTNESS_PORTS_Array = [
+            //         {
+            //             text: "F1",
+            //             value: "F1",
+            //         },
+            //     ];
+            // }
+
+            if (BRIGHTNESS_PORTS_Array[0].value == "B1") {
+                return [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                ];
+            } else if (BRIGHTNESS_PORTS_Array[0].value == "F1") {
+                return [
+                    {
+                        text: "F1",
+                        value: "F1",
+                    },
+                ];
+            }
+
+            return SERVO_PORTS_Array;
+        }
     }
 
     //A-I    OPTION_7
@@ -106,20 +342,6 @@ class BISOFT_TERN {
             {
                 text: "I2",
                 value: "I2",
-            },
-        ];
-    }
-
-    // B1 F1  OPTION_2
-    get SERVO_PORTS() {
-        return [
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "F1",
-                value: "F1",
             },
         ];
     }
@@ -209,33 +431,6 @@ class BISOFT_TERN {
         ];
     }
 
-    //B1-F1  OPTION_2 and OPTION_6
-    get BRIGHTNESS_PORTS() {
-        return [
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "F1",
-                value: "F1",
-            },
-        ];
-    }
-
-    get SERVO_PORTS() {
-        return [
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "F1",
-                value: "F1",
-            },
-        ];
-    }
-
     get MOTOR_PORTS() {
         return [
             {
@@ -278,18 +473,25 @@ class BISOFT_TERN {
         ];
     }
 
-    setPortsLogic(args, utils) {
+    setPortsLogicFun(args, utils) {
         // console.log("setPortsLogic, 85214795 ");
         // console.log(args);
         // if (localStorage.getItem("isItem") == "true") {
         // }
 
-        getByteData(args.ports, "DIGITAL_OUTPUT");
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.setPortsLogic);
+
+        getByteData(args.setPortsLogic, "DIGITAL_OUTPUT");
     }
 
-    setBrighness(args, utils) {
-        console.log("setBrighness");
-        getByteData(args.ports, "PWM");
+    setBrighnessFun(args, utils) {
+        // console.log("setBrighness");
+        // console.log("CLICK GET: ", args.setPortsLogic);
+        console.log("ARGS: ", args);
+
+        getByteData(args.setBrighnessPorts, "PWM");
     }
 
     moveMotor(args, utils) {
@@ -304,8 +506,14 @@ class BISOFT_TERN {
         console.log("moveRightMotor");
     }
 
-    setServoMotor(args, utils) {
+    setServoMotorFun(args, utils) {
         console.log("setServoMotor");
+
+        console.log("ARGS: ", args);
+
+        // console.log("setBrighness");
+        // console.log("CLICK: ", args.setPortsLogic);
+        getByteData(args.setServoMotorPorts, "S");
     }
 
     setAnalogRead(args, utils) {
@@ -342,17 +550,16 @@ class BISOFT_TERN {
                 //     arguments: {
                 //         TEXT: {
                 //             type: ArgumentType.STRING,
-                //             defaultValue: "hello",
                 //         },
                 //     },
                 // },
 
                 {
-                    opcode: "setPortsLogic",
-                    text: "Set [ports]at  Logic [logic]",
+                    opcode: "setPortsLogicFun",
+                    text: "Set [setPortsLogic] at  Logic [logic]",
                     blockType: "command",
                     arguments: {
-                        ports: {
+                        setPortsLogic: {
                             type: "string",
                             menu: "allPorts",
                             defaultValue: "A1",
@@ -366,14 +573,15 @@ class BISOFT_TERN {
                 },
 
                 {
-                    opcode: "setBrighness",
-                    text: "set [ports]at  brightness [brightness]%",
+                    opcode: "setBrighnessFun",
+                    text:
+                        "set [setBrighnessPorts] at  brightness [brightness]%",
                     blockType: "command",
                     arguments: {
-                        ports: {
-                            type: "string",
+                        setBrighnessPorts: {
+                            type: ArgumentType.STRING,
                             menu: "brightnessPorts",
-                            defaultValue: "B1",
+                            defaultValue: "SELECT",
                         },
                         brightness: {
                             type: "number",
@@ -432,14 +640,15 @@ class BISOFT_TERN {
                     },
                 },
                 {
-                    opcode: "setServoMotor",
-                    text: "set servo motor at [ports] to [degree] degrees",
+                    opcode: "setServoMotorFun",
+                    text:
+                        "set servo motor at [setServoMotorPorts] to [degree] degrees",
                     blockType: "command",
                     arguments: {
-                        ports: {
-                            type: "string",
+                        setServoMotorPorts: {
+                            type: ArgumentType.STRING,
                             menu: "servo_ports",
-                            defaultValue: "B1",
+                            defaultValue: "SELECT",
                         },
                         degree: {
                             type: "number",
@@ -507,14 +716,21 @@ class BISOFT_TERN {
                     items: "ALL_PORTS_MENU",
                 },
 
+                brightnessPorts: {
+                    acceptReporters: false,
+                    items: "BRIGHTNESS_PORTS",
+                },
+
+                servo_ports: {
+                    acceptReporters: false,
+                    items: "SERVO_PORTS",
+                },
+
                 checkLogicConditionPorts: {
                     acceptReporters: false,
                     items: this.CHECK_LOGIC_PORTS_MENU,
                 },
-                brightnessPorts: {
-                    acceptReporters: false,
-                    items: this.BRIGHTNESS_PORTS,
-                },
+
                 motorPorts: {
                     acceptReporters: false,
                     items: this.MOTOR_PORTS,
@@ -523,10 +739,7 @@ class BISOFT_TERN {
                     acceptReporters: false,
                     items: this.ANALOG_PORTS,
                 },
-                servoPorts: {
-                    acceptReporters: false,
-                    items: this.SERVO_PORTS,
-                },
+
                 logic: {
                     acceptReporters: false,
                     items: this.LOGIC,
@@ -534,10 +747,6 @@ class BISOFT_TERN {
                 motor_actions: {
                     acceptReporters: false,
                     items: this.MOTOR_ACTIONS,
-                },
-                servo_ports: {
-                    acceptReporters: false,
-                    items: this.SERVO_PORTS,
                 },
                 analog_ports: {
                     acceptReporters: false,

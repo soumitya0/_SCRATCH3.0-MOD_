@@ -81,6 +81,10 @@ generateByteData = () => {
                 bytesObject[Object.keys(data)[0]] = "P";
                 break;
             }
+            case "S": {
+                bytesObject[Object.keys(data)[0]] = "S";
+                break;
+            }
         }
     });
 

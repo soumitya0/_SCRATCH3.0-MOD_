@@ -1264,8 +1264,19 @@ class VirtualMachine extends EventEmitter {
     blockListener(e) {
         // worke block id
 
+        console.log("Newval", e.newValue);
+
+        let element;
+        if (typeof e.element != "undefined") {
+            element = e.element;
+        }
+
         //here we are sending the selected port value
-        this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue);
+        this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
+
+        this.BISOFT_TERN.BRIGHTNESS_PORTS(e.newValue, e.name, e.element);
+
+        this.BISOFT_TERN.SERVO_PORTS(e.newValue, e.name, e.element);
 
         console.log("blockListerner: ", e);
 
