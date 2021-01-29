@@ -6,7 +6,7 @@ const log = require("../../util/log");
 const getByteData = require("../../byteDataGenerate/byteDataGen");
 // eslint-disable-next-line max-len
 
-// const dynamicMenu = require("../../DynamicMenu/dynamicMenu");
+const dynamicMenu = require("../../DynamicMenu/dynamicMenu");
 /**
  * Url of icon to be displayed in the toolbox menu for the extension category.
  * @type {string}
@@ -37,30 +37,196 @@ let BRIGHTNESS_PORTS_Array = [
     },
 ];
 
+let CHECK_LOGIC_PORTS_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+
+    {
+        text: "B2",
+        value: "B2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "D2",
+        value: "D2",
+    },
+    {
+        text: "E1",
+        value: "E1",
+    },
+    {
+        text: "E2",
+        value: "E2",
+    },
+
+    {
+        text: "F2",
+        value: "F2",
+    },
+    {
+        text: "G1",
+        value: "G1",
+    },
+    {
+        text: "G2",
+        value: "G2",
+    },
+    {
+        text: "H1",
+        value: "H1",
+    },
+    {
+        text: "H2",
+        value: "H2",
+    },
+    {
+        text: "I1",
+        value: "I1",
+    },
+    {
+        text: "I2",
+        value: "I2",
+    },
+];
+
+let ANALOG_PORTS_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+    {
+        text: "B1",
+        value: "B1",
+    },
+    {
+        text: "B2",
+        value: "B2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "E1",
+        value: "E1",
+    },
+    {
+        text: "E2",
+        value: "E2",
+    },
+    {
+        text: "F1",
+        value: "F1",
+    },
+];
+
+let ArrayWithNewData = [];
+
 let PoartB1 = false;
 
 let PoartF1 = false;
 
+let ALL_PORTS_MENU_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+
+    {
+        text: "B2",
+        value: "B2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "D2",
+        value: "D2",
+    },
+    {
+        text: "E1",
+        value: "E1",
+    },
+    {
+        text: "E2",
+        value: "E2",
+    },
+
+    {
+        text: "F2",
+        value: "F2",
+    },
+    {
+        text: "G1",
+        value: "G1",
+    },
+    {
+        text: "G2",
+        value: "G2",
+    },
+    {
+        text: "H1",
+        value: "H1",
+    },
+    {
+        text: "H2",
+        value: "H2",
+    },
+    {
+        text: "I1",
+        value: "I1",
+    },
+    {
+        text: "I2",
+        value: "I2",
+    },
+];
+
 // sessionStorage.setItem("blocksInPresentWorkSpace", JSON.stringify([]));
 
 sessionStorage.setItem("blockOnWorkSpace", JSON.stringify([]));
-
-RemovingSessionData = () => {
-    console.log("RemovingSessionData");
-    let sessionData = JSON.parse(sessionStorage.getItem("blockOnWorkSpace"));
-    let newSessionData = [];
-    let uniqueObject = {};
-    for (let i in sessionData) {
-        objblockId = sessionData[i]["blockId"];
-
-        uniqueObject[objblockId] = sessionData[i];
-    }
-    for (i in uniqueObject) {
-        newSessionData.push(uniqueObject[i]);
-    }
-    console.log(newSessionData, "newSessionData");
-    sessionStorage.setItem("blockOnWorkSpace", JSON.stringify(newSessionData));
-};
 
 class BISOFT_TERN {
     constructor(runtime) {
@@ -69,81 +235,103 @@ class BISOFT_TERN {
 
     // A-I  I-M   OPTION_1
 
-    ALL_PORTS_MENU(value, name) {
-        if (typeof name != "undefined" && name == "setPortsLogic") {
-            // blockOnWorkSpace.push({
-            //     blockId: name,
-            // });
+    ALL_PORTS_MENU(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData LOGIC_PORT", sessionData);
+
+        sessionData.map((data, index) => {
+            // console.log("sessionData LOGIC_PORT", data);
+
+            if (data.blockName == "portsLogic") {
+                ALL_PORTS_MENU_Array = ALL_PORTS_MENU_Array.filter(
+                    (PORTS_data, index) => {
+                        return PORTS_data.value != data.SelectedPort;
+                    }
+                );
+            }
+        });
+
+        // if  objCheck undefined i.e portsLogic is not present so it will return all data[]
+
+        let objCheck = sessionData.find(
+            (data) => data.blockName === "portsLogic"
+        );
+        if (typeof objCheck == "undefined") {
+            ALL_PORTS_MENU_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+                {
+                    text: "E1",
+                    value: "E1",
+                },
+                {
+                    text: "E2",
+                    value: "E2",
+                },
+
+                {
+                    text: "F2",
+                    value: "F2",
+                },
+                {
+                    text: "G1",
+                    value: "G1",
+                },
+                {
+                    text: "G2",
+                    value: "G2",
+                },
+                {
+                    text: "H1",
+                    value: "H1",
+                },
+                {
+                    text: "H2",
+                    value: "H2",
+                },
+                {
+                    text: "I1",
+                    value: "I1",
+                },
+                {
+                    text: "I2",
+                    value: "I2",
+                },
+            ];
         }
 
-        let ALL_PORTS_MENU_Array = [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-
-            {
-                text: "B2",
-                value: "B2",
-            },
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "C2",
-                value: "C2",
-            },
-            {
-                text: "D1",
-                value: "D1",
-            },
-            {
-                text: "D2",
-                value: "D2",
-            },
-            {
-                text: "E1",
-                value: "E1",
-            },
-            {
-                text: "E2",
-                value: "E2",
-            },
-
-            {
-                text: "F2",
-                value: "F2",
-            },
-            {
-                text: "G1",
-                value: "G1",
-            },
-            {
-                text: "G2",
-                value: "G2",
-            },
-            {
-                text: "H1",
-                value: "H1",
-            },
-            {
-                text: "H2",
-                value: "H2",
-            },
-            {
-                text: "I1",
-                value: "I1",
-            },
-            {
-                text: "I2",
-                value: "I2",
-            },
-        ];
+        if (typeof name != "undefined" && name == "setPortsLogic") {
+            console.log("VALUE 777", value);
+        }
 
         return ALL_PORTS_MENU_Array;
 
@@ -170,7 +358,9 @@ class BISOFT_TERN {
     BRIGHTNESS_PORTS(value, name, element, blockId) {
         console.log("WELCOME TO BRIGHTNESS_PORTS");
 
-        RemovingSessionData();
+        dynamicMenu.RemovingSessionData();
+
+        // CHECK THAT SESSION HAVE setServoMotorPorts if not it will return undefine
         let sessionblockOnWorkSpaceData = JSON.parse(
             sessionStorage.getItem("blockOnWorkSpace")
         );
@@ -196,6 +386,8 @@ class BISOFT_TERN {
         PoartB1 = false;
 
         PoartF1 = false;
+
+        // if POART_B1 and POART_F1 are theri in session then for SERVO   text: "B1&F1  are allready selected",
 
         let checkPort = sessionblockOnWorkSpaceData.find((data, index) => {
             if (
@@ -256,7 +448,8 @@ class BISOFT_TERN {
 
     SERVO_PORTS(value, name, element, blockId) {
         console.log("WELCOME TO SERVO_PORTS");
-        RemovingSessionData();
+
+        dynamicMenu.RemovingSessionData();
 
         let NosetBrighnessPorts = "false";
 
@@ -346,81 +539,111 @@ class BISOFT_TERN {
     }
 
     //A-I    OPTION_7
-    CHECK_LOGIC_PORTS_MENU() {
-        return [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "B2",
-                value: "B2",
-            },
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "C2",
-                value: "C2",
-            },
-            {
-                text: "D1",
-                value: "D1",
-            },
-            {
-                text: "D2",
-                value: "D2",
-            },
-            {
-                text: "E1",
-                value: "E1",
-            },
-            {
-                text: "E2",
-                value: "E2",
-            },
-            {
-                text: "F1",
-                value: "F1",
-            },
-            {
-                text: "F2",
-                value: "F2",
-            },
-            {
-                text: "G1",
-                value: "G1",
-            },
-            {
-                text: "G2",
-                value: "G2",
-            },
-            {
-                text: "H1",
-                value: "H1",
-            },
-            {
-                text: "H2",
-                value: "H2",
-            },
-            {
-                text: "I1",
-                value: "I1",
-            },
-            {
-                text: "I2",
-                value: "I2",
-            },
-        ];
+    CHECK_LOGIC_PORTS_MENU(value, name, element, blockId) {
+        // Removing the PORT THAT ARE SELECTED BY SET_PORT_LOGIC
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData LOGIC_PORT", sessionData);
+
+        sessionData.map((data, index) => {
+            // console.log("sessionData LOGIC_PORT", data);
+
+            if (data.blockName == "setPortsLogic") {
+                CHECK_LOGIC_PORTS_Array = CHECK_LOGIC_PORTS_Array.filter(
+                    (LOGIC_PORTS_data, index) => {
+                        return LOGIC_PORTS_data.value != data.SelectedPort;
+                    }
+                );
+            }
+        });
+
+        let objCheck = sessionData.find(
+            (data) => data.blockName === "setPortsLogic"
+        );
+
+        if (typeof objCheck == "undefined") {
+            CHECK_LOGIC_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+                {
+                    text: "E1",
+                    value: "E1",
+                },
+                {
+                    text: "E2",
+                    value: "E2",
+                },
+
+                {
+                    text: "F2",
+                    value: "F2",
+                },
+                {
+                    text: "G1",
+                    value: "G1",
+                },
+                {
+                    text: "G2",
+                    value: "G2",
+                },
+                {
+                    text: "H1",
+                    value: "H1",
+                },
+                {
+                    text: "H2",
+                    value: "H2",
+                },
+                {
+                    text: "I1",
+                    value: "I1",
+                },
+                {
+                    text: "I2",
+                    value: "I2",
+                },
+            ];
+        }
+
+        console.log("sessionData LOGIC_PORT", CHECK_LOGIC_PORTS_Array);
+
+        if (typeof name != "undefined" && name == "portsLogic") {
+        }
+
+        return CHECK_LOGIC_PORTS_Array;
+    }
+
+    // A-F  OPTION_8
+    ANALOG_PORTS(value, name, element, blockId) {
+        return ANALOG_PORTS_Array;
     }
 
     // B-F OPTION_9
@@ -462,48 +685,6 @@ class BISOFT_TERN {
             {
                 text: "Backward",
                 value: "Backward",
-            },
-        ];
-    }
-
-    // A-F  OPTION_8
-    get ANALOG_PORTS() {
-        return [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "C2",
-                value: "C2",
-            },
-            {
-                text: "D1",
-                value: "D1",
-            },
-            {
-                text: "E1",
-                value: "E1",
-            },
-            {
-                text: "E2",
-                value: "E2",
-            },
-            {
-                text: "F1",
-                value: "F1",
             },
         ];
     }
@@ -756,18 +937,20 @@ class BISOFT_TERN {
                         },
                     },
                 },
+
                 {
                     opcode: "setAnalogRead",
-                    text: "Analog read of port [ports]",
+                    text: "Analog read of port [AnalogReadPorts]",
                     blockType: "reporter",
                     arguments: {
-                        ports: {
+                        AnalogReadPorts: {
                             type: "string",
-                            menu: "analog_ports",
+                            menu: "analogReadportsCondition",
                             defaultValue: "A1",
                         },
                     },
                 },
+
                 {
                     opcode: "ultrasonicSensor",
                     text: "ultrasonic sensor at port [ports]",
@@ -818,9 +1001,9 @@ class BISOFT_TERN {
                     acceptReporters: false,
                     items: this.MOTOR_PORTS,
                 },
-                analogPorts: {
+                analogReadportsCondition: {
                     acceptReporters: false,
-                    items: this.ANALOG_PORTS,
+                    items: "ANALOG_PORTS",
                 },
 
                 logic: {
@@ -831,10 +1014,7 @@ class BISOFT_TERN {
                     acceptReporters: false,
                     items: this.MOTOR_ACTIONS,
                 },
-                analog_ports: {
-                    acceptReporters: false,
-                    items: this.ANALOG_PORTS,
-                },
+
                 ultraSonic_ports: {
                     acceptReporters: false,
                     items: this.ULTRASONIC_PORTS,

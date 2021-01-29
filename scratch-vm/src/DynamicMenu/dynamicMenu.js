@@ -206,3 +206,22 @@
 // module.exports.dynamicMenuData_BRIGHTNESS_PORTS = dynamicMenuData_BRIGHTNESS_PORTS;
 
 // module.exports.dynamicMenuData_SERVO_PORTS = dynamicMenuData_SERVO_PORTS;
+
+const RemovingSessionData = () => {
+    console.log("RemovingSessionData");
+    let sessionData = JSON.parse(sessionStorage.getItem("blockOnWorkSpace"));
+    let newSessionData = [];
+    let uniqueObject = {};
+    for (let i in sessionData) {
+        objblockId = sessionData[i]["blockId"];
+
+        uniqueObject[objblockId] = sessionData[i];
+    }
+    for (i in uniqueObject) {
+        newSessionData.push(uniqueObject[i]);
+    }
+    console.log(newSessionData, "newSessionData");
+    sessionStorage.setItem("blockOnWorkSpace", JSON.stringify(newSessionData));
+};
+
+module.exports.RemovingSessionData = RemovingSessionData;

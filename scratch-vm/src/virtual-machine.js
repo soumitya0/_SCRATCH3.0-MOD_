@@ -1263,28 +1263,6 @@ class VirtualMachine extends EventEmitter {
      * @param {!Blockly.Event} e Any Blockly event.
      */
     blockListener(e) {
-        // session if blockId are same then delete that block
-        // removing the dublicated id
-        let sessionData = JSON.parse(
-            sessionStorage.getItem("blockOnWorkSpace")
-        );
-        let newSessionData = [];
-        let uniqueObject = {};
-        for (let i in sessionData) {
-            objblockId = sessionData[i]["blockId"];
-
-            uniqueObject[objblockId] = sessionData[i];
-        }
-        for (i in uniqueObject) {
-            newSessionData.push(uniqueObject[i]);
-        }
-        console.log(newSessionData, "newSessionData");
-        sessionStorage.setItem(
-            "blockOnWorkSpace",
-            JSON.stringify(newSessionData)
-        );
-        // END REMOVING DUBLICATED DATAS
-
         // worke block id
         console.log("Newval", e.newValue);
         console.log("name", e.name);
@@ -1335,6 +1313,20 @@ class VirtualMachine extends EventEmitter {
             );
 
             this.BISOFT_TERN.SERVO_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            this.BISOFT_TERN.CHECK_LOGIC_PORTS_MENU(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            this.BISOFT_TERN.ANALOG_PORTS(
                 e.newValue,
                 e.name,
                 e.element,

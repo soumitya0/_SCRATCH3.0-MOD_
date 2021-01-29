@@ -415,26 +415,6 @@ class Blocks {
                 //     JSON.stringify(sessionItems)
                 // );
 
-                let sessionblockOnWorkSpace = JSON.parse(
-                    sessionStorage.getItem("blockOnWorkSpace")
-                );
-
-                sessionblockOnWorkSpace = sessionblockOnWorkSpace.filter(
-                    function (item) {
-                        return item.blockId !== e.blockId;
-                    }
-                );
-
-                console.log(
-                    sessionblockOnWorkSpace,
-                    "NEW DATA BLOCKABC delete"
-                );
-
-                sessionStorage.setItem(
-                    "blockOnWorkSpace",
-                    JSON.stringify(sessionblockOnWorkSpace)
-                );
-
                 // console.log("DELETED ID sessionItems: ", sessionItems);
 
                 // sessionItems.map((data, index) => {
@@ -1442,7 +1422,27 @@ class Blocks {
      * @param {?string} topBlockId ID of block that starts the script.
      */
     _deleteScript(topBlockId) {
-        console.log("_deleteScript");
+        console.log("_deleteScript", topBlockId);
+
+        //START REMOVE THE BLOCK WHEN THE USER DELETE IT
+        let sessionblockOnWorkSpace = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+
+        sessionblockOnWorkSpace = sessionblockOnWorkSpace.filter(function (
+            item
+        ) {
+            return item.blockId !== topBlockId;
+        });
+
+        console.log(sessionblockOnWorkSpace, "NEW DATA BLOCKABC delete");
+
+        sessionStorage.setItem(
+            "blockOnWorkSpace",
+            JSON.stringify(sessionblockOnWorkSpace)
+        );
+
+        // END
 
         const i = this._scripts.indexOf(topBlockId);
         if (i > -1) this._scripts.splice(i, 1);
