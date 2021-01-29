@@ -23,6 +23,8 @@ const newBlockIds = require("./util/new-block-ids");
 const Block = require("./engine/blocks");
 const BISOFT_TERN = require("./extensions/BISOFT_TERN/index");
 
+const BISOFT_ACE = require("./extensions/BISOFT_ACE/index");
+
 const { loadCostume } = require("./import/load-costume.js");
 const { loadSound } = require("./import/load-sound.js");
 const {
@@ -66,6 +68,7 @@ class VirtualMachine extends EventEmitter {
 
         this.Block = new Block();
         this.BISOFT_TERN = new BISOFT_TERN();
+        this.BISOFT_ACE = new BISOFT_ACE();
 
         /**
          * The "currently editing"/selected target ID for the VM.
@@ -1327,6 +1330,28 @@ class VirtualMachine extends EventEmitter {
             );
 
             this.BISOFT_TERN.ANALOG_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            // BISOFT_ACE
+            this.BISOFT_ACE.ACE_ALL_PORTS_MENU(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            this.BISOFT_ACE.ACE_CHECK_LOGIC_PORTS_MENU(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+
+            this.BISOFT_ACE.ACE_ANALOG_PORTS(
                 e.newValue,
                 e.name,
                 e.element,
