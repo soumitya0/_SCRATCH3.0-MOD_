@@ -1357,6 +1357,19 @@ class VirtualMachine extends EventEmitter {
                 e.element,
                 e.blockId
             );
+
+            this.BISOFT_ACE.ACE_SERVO_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+            this.BISOFT_ACE.ACE_BRIGHTNESS_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
         }
 
         let element;
