@@ -148,6 +148,43 @@ class BISOFT_ACE {
         );
         console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
 
+        if (sessionData.length == 0) {
+            ACE_ALL_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+            ];
+        }
+
         sessionData.map((data, index) => {
             let blockName = data.blockName;
 
@@ -168,25 +205,77 @@ class BISOFT_ACE {
                 }
             }
 
-            // if (data.blockName == "ACE_Input_Ports_Logic") {
+            if (data.blockName != "ACE_Output_Ports_Logic") {
+                ACE_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
 
-            // }
-
-            // if (data.blockName == "ACE_Input_Ports_Logic") {
-            //     console.log("COME INSIDE ACE_ALL_PORT");
-            //     ACE_ALL_PORTS_Array = ACE_ALL_PORTS_Array.filter(
-            //         (PORTS_data, index) => {
-            //             console.log(
-            //                 "COME INSIDE ",
-            //                 PORTS_data.value,
-            //                 data.SelectedPort
-            //             );
-            //             return PORTS_data.value != data.SelectedPort;
-            //         }
-            //     );
-
-            //     console.log("COME INSIDE ARRAY", ACE_ALL_PORTS_Array);
-            // }
+                ACE_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+            }
         });
 
         // if  objCheck undefined i.e portsLogic is not present so it will return all data[]
@@ -194,48 +283,6 @@ class BISOFT_ACE {
         //     (data) => data.blockName === "ACE_Input_Ports_Logic"
         // );
         // if (typeof objCheck == "undefined") {
-        //     console.log("COME INSIDE ARRAY4", ACE_ALL_PORTS_Array);
-
-        //     ACE_ALL_PORTS_Array = [
-        //         {
-        //             text: "A1",
-        //             value: "A1",
-        //         },
-        //         {
-        //             text: "A2",
-        //             value: "A2",
-        //         },
-        //         {
-        //             text: "B1",
-        //             value: "B1",
-        //         },
-        //         {
-        //             text: "B2",
-        //             value: "B2",
-        //         },
-        //         {
-        //             text: "C1",
-        //             value: "C1",
-        //         },
-        //         {
-        //             text: "C2",
-        //             value: "C2",
-        //         },
-        //         {
-        //             text: "D1",
-        //             value: "D1",
-        //         },
-        //         {
-        //             text: "D2",
-        //             value: "D2",
-        //         },
-        //     ];
-        // }
-
-        // let objCheck2 = sessionData.find(
-        //     (data) => data.blockName === "ACE_Analog_Read_Port"
-        // );
-        // if (typeof objCheck2 == "undefined") {
         //     console.log("COME INSIDE ARRAY4", ACE_ALL_PORTS_Array);
 
         //     ACE_ALL_PORTS_Array = [
@@ -291,6 +338,43 @@ class BISOFT_ACE {
         );
         console.log("sessionData LOGIC_PORT", sessionData);
 
+        if (sessionData.length == 0) {
+            ACE_CHECK_LOGIC_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+            ];
+        }
+
         sessionData.map((data, index) => {
             // console.log("sessionData LOGIC_PORT", data);
 
@@ -314,6 +398,77 @@ class BISOFT_ACE {
                 }
             }
 
+            if (data.blockName != "ACE_Input_Ports_Logic") {
+                ACE_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ACE_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+            }
+
             // if (data.blockName == "ACE_Output_Ports_Logic") {
             //     ACE_CHECK_LOGIC_PORTS_Array = ACE_CHECK_LOGIC_PORTS_Array.filter(
             //         (LOGIC_PORTS_data, index) => {
@@ -322,47 +477,6 @@ class BISOFT_ACE {
             //     );
             // }
         });
-
-        // let objCheck = sessionData.find(
-        //     (data) => data.blockName === "ACE_Output_Ports_Logic"
-        // );
-
-        // if (typeof objCheck == "undefined") {
-        //     ACE_CHECK_LOGIC_PORTS_Array = [
-        //         {
-        //             text: "A1",
-        //             value: "A1",
-        //         },
-        //         {
-        //             text: "A2",
-        //             value: "A2",
-        //         },
-        //         {
-        //             text: "B1",
-        //             value: "B1",
-        //         },
-        //         {
-        //             text: "B2",
-        //             value: "B2",
-        //         },
-        //         {
-        //             text: "C1",
-        //             value: "C1",
-        //         },
-        //         {
-        //             text: "C2",
-        //             value: "C2",
-        //         },
-        //         {
-        //             text: "D1",
-        //             value: "D1",
-        //         },
-        //         {
-        //             text: "D2",
-        //             value: "D2",
-        //         },
-        //     ];
-        // }
 
         console.log("sessionData LOGIC_PORT", ACE_CHECK_LOGIC_PORTS_Array);
 
@@ -377,6 +491,43 @@ class BISOFT_ACE {
             sessionStorage.getItem("blockOnWorkSpace")
         );
         console.log("sessionData LOGIC_PORT", sessionData);
+
+        if (sessionData.length == 0) {
+            ACE_ANALOG_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+            ];
+        }
 
         sessionData.map((data, index) => {
             // console.log("sessionData LOGIC_PORT", data);
@@ -401,55 +552,77 @@ class BISOFT_ACE {
                 }
             }
 
-            // if (data.blockName == "ACE_Output_Ports_Logic") {
-            //     ACE_ANALOG_PORTS_Array = ACE_ANALOG_PORTS_Array.filter(
-            //         (PORTS_data, index) => {
-            //             return PORTS_data.value != data.SelectedPort;
-            //         }
-            //     );
-            // }
+            if (data.blockName != "ACE_Analog_Read_Port") {
+                ACE_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ACE_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+            }
         });
-
-        // let objCheck = sessionData.find(
-        //     (data) => data.blockName === "ACE_Output_Ports_Logic"
-        // );
-
-        // if (typeof objCheck == "undefined") {
-        //     ACE_ANALOG_PORTS_Array = [
-        //         {
-        //             text: "A1",
-        //             value: "A1",
-        //         },
-        //         {
-        //             text: "A2",
-        //             value: "A2",
-        //         },
-        //         {
-        //             text: "B1",
-        //             value: "B1",
-        //         },
-        //         {
-        //             text: "B2",
-        //             value: "B2",
-        //         },
-        //         {
-        //             text: "C1",
-        //             value: "C1",
-        //         },
-        //         {
-        //             text: "C2",
-        //             value: "C2",
-        //         },
-        //         {
-        //             text: "D1",
-        //             value: "D1",
-        //         },
-        //         {
-        //             text: "D2",
-        //             value: "D2",
-        //         },
-        //     ];
-        // }
 
         console.log("sessionData LOGIC_PORT", ACE_ANALOG_PORTS_Array);
 
