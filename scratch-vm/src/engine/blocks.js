@@ -371,24 +371,24 @@ class Blocks {
 
                 this.runtime.emitBlockDragUpdate(false /* areBlocksOverGui */);
 
-                let oldItems = JSON.parse(
-                    sessionStorage.getItem("blocksInPresentWorkSpace")
-                );
+                // let oldItems = JSON.parse(
+                //     sessionStorage.getItem("blocksInPresentWorkSpace")
+                // );
 
-                oldItems.push(e.blockId);
+                // oldItems.push(e.blockId);
 
-                console.log("BLOCKABC endDrag oldItems", oldItems);
+                // console.log("BLOCKABC endDrag oldItems", oldItems);
 
-                oldItems = oldItems.filter(function (item, index) {
-                    return oldItems.indexOf(item) === index;
-                });
+                // oldItems = oldItems.filter(function (item, index) {
+                //     return oldItems.indexOf(item) === index;
+                // });
 
-                console.log(oldItems, "NEW DATA BLOCKABC endDrag");
+                // console.log(oldItems, "NEW DATA BLOCKABC endDrag");
 
-                sessionStorage.setItem(
-                    "blocksInPresentWorkSpace",
-                    JSON.stringify(oldItems)
-                );
+                // sessionStorage.setItem(
+                //     "blocksInPresentWorkSpace",
+                //     JSON.stringify(oldItems)
+                // );
 
                 // Drag blocks onto another sprite
                 if (e.isOutside) {
@@ -400,20 +400,20 @@ class Blocks {
                 console.log("deleteBlock process................ ");
                 console.log("BLOCKABCD delete: ", e);
 
-                let sessionItems = JSON.parse(
-                    sessionStorage.getItem("blocksInPresentWorkSpace")
-                );
+                // let sessionItems = JSON.parse(
+                //     sessionStorage.getItem("blocksInPresentWorkSpace")
+                // );
 
-                sessionItems = sessionItems.filter(function (item) {
-                    return item !== e.blockId;
-                });
+                // sessionItems = sessionItems.filter(function (item) {
+                //     return item !== e.blockId;
+                // });
 
-                console.log(sessionItems, "NEW DATA BLOCKABC delete");
+                // console.log(sessionItems, "NEW DATA BLOCKABC delete");
 
-                sessionStorage.setItem(
-                    "blocksInPresentWorkSpace",
-                    JSON.stringify(sessionItems)
-                );
+                // sessionStorage.setItem(
+                //     "blocksInPresentWorkSpace",
+                //     JSON.stringify(sessionItems)
+                // );
 
                 let sessionblockOnWorkSpace = JSON.parse(
                     sessionStorage.getItem("blockOnWorkSpace")
