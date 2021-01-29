@@ -13,6 +13,7 @@ const getByteData = require("../../byteDataGenerate/byteDataGen");
  */
 // eslint-disable-next-line max-len
 const ternImg = require("./tern.png");
+const { TURBO_MODE_OFF } = require("../../engine/runtime");
 
 let SERVO_PORTS_Array = [
     {
@@ -36,9 +37,30 @@ let BRIGHTNESS_PORTS_Array = [
     },
 ];
 
+let PoartB1 = false;
+
+let PoartF1 = false;
+
 // sessionStorage.setItem("blocksInPresentWorkSpace", JSON.stringify([]));
 
 sessionStorage.setItem("blockOnWorkSpace", JSON.stringify([]));
+
+RemovingSessionData = () => {
+    console.log("RemovingSessionData");
+    let sessionData = JSON.parse(sessionStorage.getItem("blockOnWorkSpace"));
+    let newSessionData = [];
+    let uniqueObject = {};
+    for (let i in sessionData) {
+        objblockId = sessionData[i]["blockId"];
+
+        uniqueObject[objblockId] = sessionData[i];
+    }
+    for (i in uniqueObject) {
+        newSessionData.push(uniqueObject[i]);
+    }
+    console.log(newSessionData, "newSessionData");
+    sessionStorage.setItem("blockOnWorkSpace", JSON.stringify(newSessionData));
+};
 
 class BISOFT_TERN {
     constructor(runtime) {
@@ -148,6 +170,7 @@ class BISOFT_TERN {
     BRIGHTNESS_PORTS(value, name, element, blockId) {
         console.log("WELCOME TO BRIGHTNESS_PORTS");
 
+        RemovingSessionData();
         let sessionblockOnWorkSpaceData = JSON.parse(
             sessionStorage.getItem("blockOnWorkSpace")
         );
@@ -170,23 +193,25 @@ class BISOFT_TERN {
                 },
             ];
         }
+        PoartB1 = false;
 
-        // let sessionItems = JSON.parse(
-        //     sessionStorage.getItem("blocksInPresentWorkSpace")
-        // );
+        PoartF1 = false;
 
-        // if (sessionItems.length == 0) {
-        //     BRIGHTNESS_PORTS_Array = [
-        //         {
-        //             text: "B1",
-        //             value: "B1",
-        //         },
-        //         {
-        //             text: "F1",
-        //             value: "F1",
-        //         },
-        //     ];
-        // }
+        let checkPort = sessionblockOnWorkSpaceData.find((data, index) => {
+            if (
+                data.blockName == "setBrighnessPorts" &&
+                data.SelectedPort == "B1"
+            ) {
+                PoartB1 = true;
+            } else if (
+                data.blockName == "setBrighnessPorts" &&
+                data.SelectedPort == "F1"
+            ) {
+                PoartF1 = true;
+            }
+        });
+
+        console.log("PoartB1: ", PoartB1, " PoartF1: ", PoartF1);
 
         if (typeof name != "undefined" && name == "setBrighnessPorts") {
             if (value == "B1") {
@@ -207,6 +232,15 @@ class BISOFT_TERN {
             }
         }
 
+        if (PoartB1 == true && PoartF1 == true) {
+            SERVO_PORTS_Array = [
+                {
+                    text: "B1&F1  are allready selected",
+                    // value: "B1",
+                },
+            ];
+        }
+
         console.log("BRIGHTNESS_PORTS name:", name);
 
         console.log("BRIGHTNESS_PORTS element:", element);
@@ -222,6 +256,7 @@ class BISOFT_TERN {
 
     SERVO_PORTS(value, name, element, blockId) {
         console.log("WELCOME TO SERVO_PORTS");
+        RemovingSessionData();
 
         let NosetBrighnessPorts = "false";
 
@@ -235,10 +270,10 @@ class BISOFT_TERN {
 
         console.log("sessionblockOnWorkSpace", sessionblockOnWorkSpace);
 
+        // objCheck is 'undefined' that means  setBrighnessPorts is not in SessionStorage
         let objCheck = sessionblockOnWorkSpace.find(
             (data) => data.blockName === "setBrighnessPorts"
         );
-
         if (typeof objCheck == "undefined") {
             SERVO_PORTS_Array = [
                 {
@@ -252,18 +287,25 @@ class BISOFT_TERN {
             ];
         }
 
-        // if (sessionItems.length == 0) {
-        //     BRIGHTNESS_PORTS_Array = [
-        //         {
-        //             text: "B1",
-        //             value: "B1",
-        //         },
-        //         {
-        //             text: "F1",
-        //             value: "F1",
-        //         },
-        //     ];
-        // }
+        PoartB1 = false;
+
+        PoartF1 = false;
+
+        let checkPort = sessionblockOnWorkSpace.find((data, index) => {
+            if (
+                data.blockName == "setServoMotorPorts" &&
+                data.SelectedPort == "B1"
+            ) {
+                PoartB1 = true;
+            } else if (
+                data.blockName == "setServoMotorPorts" &&
+                data.SelectedPort == "F1"
+            ) {
+                PoartF1 = true;
+            }
+        });
+
+        console.log("PoartB1: ", PoartB1, " PoartF1: ", PoartF1);
 
         if (typeof name != "undefined" && name == "setServoMotorPorts") {
             if (value == "B1") {
@@ -287,6 +329,15 @@ class BISOFT_TERN {
                 });
             }
         }
+
+        if (PoartB1 == true && PoartF1 == true) {
+            BRIGHTNESS_PORTS_Array = [
+                {
+                    text: "B1&F1  are allready selected",
+                    // value: "B1",
+                },
+            ];
+        }
         console.log("SERVO_PORTS blockId:", blockId);
 
         console.log("SERVO_PORTS_Array: ", SERVO_PORTS_Array);
@@ -295,7 +346,7 @@ class BISOFT_TERN {
     }
 
     //A-I    OPTION_7
-    get CHECK_LOGIC_PORTS_MENU() {
+    CHECK_LOGIC_PORTS_MENU() {
         return [
             {
                 text: "A1",
@@ -690,10 +741,10 @@ class BISOFT_TERN {
                 },
                 {
                     opcode: "checkLogicCondition",
-                    text: "Port [ports] is [logic]",
+                    text: "Port [portsLogic] is [logic]",
                     blockType: "Boolean",
                     arguments: {
-                        ports: {
+                        portsLogic: {
                             type: "string",
                             menu: "checkLogicConditionPorts",
                             defaultValue: "A1",
@@ -760,7 +811,7 @@ class BISOFT_TERN {
 
                 checkLogicConditionPorts: {
                     acceptReporters: false,
-                    items: this.CHECK_LOGIC_PORTS_MENU,
+                    items: "CHECK_LOGIC_PORTS_MENU",
                 },
 
                 motorPorts: {
