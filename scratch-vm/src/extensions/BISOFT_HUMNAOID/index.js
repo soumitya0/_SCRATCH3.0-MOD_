@@ -3,34 +3,725 @@ const BlockType = require("../../extension-support/block-type");
 const Cast = require("../../util/cast");
 const log = require("../../util/log");
 const HUMANOIDImg = require("./humanoidDeviceExtension.png");
+
+let ZING_ALL_PORTS_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "D2",
+        value: "D2",
+    },
+];
+
+let ZING_BRIGHTNESS_PORTS_Array = [
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+];
+
+let ZING_CHECK_LOGIC_PORTS_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+
+    {
+        text: "B1",
+        value: "B1",
+    },
+    {
+        text: "B2",
+        value: "B2",
+    },
+
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+
+    {
+        text: "D1",
+        value: "D1",
+    },
+    {
+        text: "D2",
+        value: "D2",
+    },
+];
+
+let ZING_ANALOG_PORTS_Array = [
+    {
+        text: "A1",
+        value: "A1",
+    },
+    {
+        text: "A2",
+        value: "A2",
+    },
+    {
+        text: "B1",
+        value: "B1",
+    },
+    {
+        text: "B2",
+        value: "B2",
+    },
+    {
+        text: "C1",
+        value: "C1",
+    },
+    {
+        text: "C2",
+        value: "C2",
+    },
+    {
+        text: "D1",
+        value: "D1",
+    },
+];
+
 class BISOFT_HUMANOID {
     constructor(runtime) {
         this.runtime = runtime;
     }
 
-    get ALL_PORTS_MENU() {
-        return [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "D1",
-                value: "D1",
-            },
-            {
-                text: "D2",
-                value: "D2",
-            },
-        ];
+    ZING_ALL_PORTS_MENU(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+
+        if (sessionData.length == 0) {
+            ZING_ALL_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+            ];
+        }
+
+        sessionData.map((data, index) => {
+            let blockName = data.blockName;
+
+            switch (blockName) {
+                case "ZING_BrightnesPorts": {
+                    ZING_ALL_PORTS_Array = ZING_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_InputPorts": {
+                    ZING_ALL_PORTS_Array = ZING_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_AnalogRead": {
+                    ZING_ALL_PORTS_Array = ZING_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ZING_SetDgitalports") {
+                ZING_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+                ZING_CHECK_LOGIC_PORTS_MENU = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ZING_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+            }
+        });
+
+        // console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
+
+        if (ZING_ALL_PORTS_Array.length == 0) {
+            ZING_ALL_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
+        return ZING_ALL_PORTS_Array;
+    }
+
+    ZING_BRIGHTNESS_PORTS(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+
+        if (sessionData.length == 0) {
+            ZING_BRIGHTNESS_PORTS_Array = [
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+            ];
+        }
+
+        sessionData.map((data, index) => {
+            let blockName = data.blockName;
+
+            switch (blockName) {
+                case "ZING_SetDgitalports": {
+                    ZING_BRIGHTNESS_PORTS_Array = ZING_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_InputPorts": {
+                    ZING_BRIGHTNESS_PORTS_Array = ZING_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_AnalogRead": {
+                    ZING_BRIGHTNESS_PORTS_Array = ZING_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ZING_BrightnesPorts") {
+                ZING_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ZING_CHECK_LOGIC_PORTS_MENU = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ZING_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+            }
+        });
+
+        // console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
+
+        if (ZING_BRIGHTNESS_PORTS_Array.length == 0) {
+            ZING_BRIGHTNESS_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
+        return ZING_BRIGHTNESS_PORTS_Array;
+    }
+
+    ZING_CHECK_LOGIC_PORTS_MENU(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+
+        if (sessionData.length == 0) {
+            ZING_CHECK_LOGIC_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+                {
+                    text: "D2",
+                    value: "D2",
+                },
+            ];
+        }
+
+        sessionData.map((data, index) => {
+            let blockName = data.blockName;
+
+            switch (blockName) {
+                case "ZING_SetDgitalports": {
+                    ZING_CHECK_LOGIC_PORTS_Array = ZING_CHECK_LOGIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_BrightnesPorts": {
+                    ZING_CHECK_LOGIC_PORTS_Array = ZING_CHECK_LOGIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_AnalogRead": {
+                    ZING_CHECK_LOGIC_PORTS_Array = ZING_CHECK_LOGIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ZING_InputPorts") {
+                ZING_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ZING_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ZING_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+            }
+        });
+
+        // console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
+
+        if (ZING_CHECK_LOGIC_PORTS_Array.length == 0) {
+            ZING_CHECK_LOGIC_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
+        return ZING_CHECK_LOGIC_PORTS_Array;
+    }
+
+    ZING_ANALOG_PORTS(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+
+        if (sessionData.length == 0) {
+            ZING_ANALOG_PORTS_Array = [
+                {
+                    text: "A1",
+                    value: "A1",
+                },
+                {
+                    text: "A2",
+                    value: "A2",
+                },
+                {
+                    text: "B1",
+                    value: "B1",
+                },
+                {
+                    text: "B2",
+                    value: "B2",
+                },
+                {
+                    text: "C1",
+                    value: "C1",
+                },
+                {
+                    text: "C2",
+                    value: "C2",
+                },
+                {
+                    text: "D1",
+                    value: "D1",
+                },
+            ];
+        }
+
+        sessionData.map((data, index) => {
+            let blockName = data.blockName;
+
+            switch (blockName) {
+                case "ZING_SetDgitalports": {
+                    ZING_ANALOG_PORTS_Array = ZING_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_BrightnesPorts": {
+                    ZING_ANALOG_PORTS_Array = ZING_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+                case "ZING_InputPorts": {
+                    ZING_ANALOG_PORTS_Array = ZING_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ZING_AnalogRead") {
+                ZING_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ZING_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ZING_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+            }
+        });
+
+        // console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
+
+        if (ZING_ANALOG_PORTS_Array.length == 0) {
+            ZING_ANALOG_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
+        return ZING_ANALOG_PORTS_Array;
     }
 
     get LOGIC() {
@@ -42,19 +733,6 @@ class BISOFT_HUMANOID {
             {
                 text: "LOW",
                 value: "LOW",
-            },
-        ];
-    }
-
-    get BRIGHTNESS_PORTS() {
-        return [
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "D1",
-                value: "D1",
             },
         ];
     }
@@ -145,79 +823,6 @@ class BISOFT_HUMANOID {
             {
                 text: "16",
                 value: "sixteenPort",
-            },
-        ];
-    }
-
-    get CHECK_LOGIC_PORTS_MENU() {
-        return [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "B2",
-                value: "B2",
-            },
-
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "C2",
-                value: "C2",
-            },
-
-            {
-                text: "D1",
-                value: "D1",
-            },
-            {
-                text: "D2",
-                value: "D2",
-            },
-        ];
-    }
-
-    get ANALOG_PORTS() {
-        return [
-            {
-                text: "A1",
-                value: "A1",
-            },
-            {
-                text: "A2",
-                value: "A2",
-            },
-            {
-                text: "B1",
-                value: "B1",
-            },
-            {
-                text: "B2",
-                value: "B2",
-            },
-            {
-                text: "C1",
-                value: "C1",
-            },
-            {
-                text: "C2",
-                value: "C2",
-            },
-            {
-                text: "D1",
-                value: "D1",
             },
         ];
     }
@@ -359,12 +964,12 @@ class BISOFT_HUMANOID {
                 {
                     opcode: "setPortsLogic",
                     blockType: "command",
-                    text: "Set [ports]at Logic  [logic]",
+                    text: "Set [ZING_SetDgitalports]at Logic  [logic]",
                     arguments: {
-                        ports: {
+                        ZING_SetDgitalports: {
                             type: "string",
                             menu: "allPorts",
-                            defaultValue: "A1",
+                            defaultValue: "SELECT",
                         },
                         logic: {
                             type: "string",
@@ -374,14 +979,15 @@ class BISOFT_HUMANOID {
                     },
                 },
                 {
-                    opcode: "setBrighness",
-                    text: "set [ports]at  brightness [brightness]%",
+                    opcode: "setBrightness",
+                    text:
+                        "set [ZING_BrightnesPorts]at  brightness [brightness]%",
                     blockType: "command",
                     arguments: {
-                        ports: {
+                        ZING_BrightnesPorts: {
                             type: "string",
                             menu: "brightnessPorts",
-                            defaultValue: "C1",
+                            defaultValue: "SELECT",
                         },
                         brightness: {
                             type: "number",
@@ -393,13 +999,13 @@ class BISOFT_HUMANOID {
                 },
                 {
                     opcode: "moveMotor",
-                    text: "move [action]",
+                    text: "move [ZING_action]",
                     blockType: "command",
                     arguments: {
-                        action: {
+                        ZING_action: {
                             type: "string",
                             menu: "motor_actions",
-                            defaultValue: "Forward",
+                            defaultValue: "SELECT",
                         },
                         speed: {
                             type: "number",
@@ -410,13 +1016,14 @@ class BISOFT_HUMANOID {
 
                 {
                     opcode: "setServoMotor",
-                    text: "set servo motor at [ports] to [degree] degrees",
+                    text:
+                        "set servo motor at [ZING_ServoPorts] to [degree] degrees",
                     blockType: "command",
                     arguments: {
-                        ports: {
+                        ZING_ServoPorts: {
                             type: "string",
                             menu: "servo_ports",
-                            defaultValue: "1",
+                            defaultValue: "SELECT",
                         },
                         degree: {
                             type: "number",
@@ -426,13 +1033,13 @@ class BISOFT_HUMANOID {
                 },
                 {
                     opcode: "checkLogicCondition",
-                    text: "Port [ports] is [logic]",
+                    text: "Port [ZING_InputPorts] is [logic]",
                     blockType: "Boolean",
                     arguments: {
-                        ports: {
+                        ZING_InputPorts: {
                             type: "string",
                             menu: "checkLogicConditionPorts",
-                            defaultValue: "A1",
+                            defaultValue: "SELECT",
                         },
                         logic: {
                             type: "string",
@@ -444,39 +1051,40 @@ class BISOFT_HUMANOID {
 
                 {
                     opcode: "setAnalogRead",
-                    text: "Analog read of port [ports]",
+                    text: "Analog read of port [ZING_AnalogRead]",
                     blockType: "reporter",
                     arguments: {
-                        ports: {
+                        ZING_AnalogRead: {
                             type: "string",
                             menu: "analog_ports",
-                            defaultValue: "A1",
+                            defaultValue: "SELECT",
                         },
                     },
                 },
 
                 {
                     opcode: "ultrasonicSensor",
-                    text: "ultrasonic sensor at port [ports]",
+                    text:
+                        "ultrasonic sensor at port [ZING_ultrasonicSensorPorts]",
                     blockType: "reporter",
                     arguments: {
-                        ports: {
+                        ZING_ultrasonicSensorPorts: {
                             type: "string",
                             menu: "ultraSonic_ports",
-                            defaultValue: "B",
+                            defaultValue: "SELECT",
                         },
                     },
                 },
 
                 {
                     opcode: "colorSensor",
-                    text: "[color] of 4-in 1 sensor is",
+                    text: "[ZING_ColorPort] of 4-in 1 sensor is",
                     blockType: "reporter",
                     arguments: {
-                        color: {
+                        ZING_ColorPort: {
                             type: "string",
                             menu: "color",
-                            defaultValue: "red",
+                            defaultValue: "SELECT",
                         },
                     },
                 },
@@ -484,12 +1092,12 @@ class BISOFT_HUMANOID {
                 {
                     opcode: "setLEDColor",
                     blockType: "command",
-                    text: " Play action [PlayActionPort]",
+                    text: " Play action [ZING_PlayActionPort]",
                     arguments: {
-                        PlayActionPort: {
+                        ZING_PlayActionPort: {
                             type: "string",
                             menu: "PlayAction",
-                            defaultValue: "ATTENTION",
+                            defaultValue: "SELECT",
                         },
                     },
                 },
@@ -498,7 +1106,7 @@ class BISOFT_HUMANOID {
             menus: {
                 allPorts: {
                     acceptReporters: false,
-                    items: this.ALL_PORTS_MENU,
+                    items: "ZING_ALL_PORTS_MENU",
                 },
                 logic: {
                     acceptReporters: false,
@@ -506,7 +1114,7 @@ class BISOFT_HUMANOID {
                 },
                 brightnessPorts: {
                     acceptReporters: false,
-                    items: this.BRIGHTNESS_PORTS,
+                    items: "ZING_BRIGHTNESS_PORTS",
                 },
 
                 motor_actions: {
@@ -521,12 +1129,12 @@ class BISOFT_HUMANOID {
 
                 checkLogicConditionPorts: {
                     acceptReporters: false,
-                    items: this.CHECK_LOGIC_PORTS_MENU,
+                    items: "ZING_CHECK_LOGIC_PORTS_MENU",
                 },
 
                 analog_ports: {
                     acceptReporters: false,
-                    items: this.ANALOG_PORTS,
+                    items: "ZING_ANALOG_PORTS",
                 },
                 ultraSonic_ports: {
                     acceptReporters: false,

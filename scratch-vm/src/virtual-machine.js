@@ -21,9 +21,10 @@ const Variable = require("./engine/variable");
 const newBlockIds = require("./util/new-block-ids");
 
 const Block = require("./engine/blocks");
-const BISOFT_TERN = require("./extensions/BISOFT_TERN/index");
 
+const BISOFT_TERN = require("./extensions/BISOFT_TERN/index");
 const BISOFT_ACE = require("./extensions/BISOFT_ACE/index");
+const BISOFT_HUMANOID = require("./extensions/BISOFT_HUMNAOID/index");
 
 const { loadCostume } = require("./import/load-costume.js");
 const { loadSound } = require("./import/load-sound.js");
@@ -69,7 +70,7 @@ class VirtualMachine extends EventEmitter {
         this.Block = new Block();
         this.BISOFT_TERN = new BISOFT_TERN();
         this.BISOFT_ACE = new BISOFT_ACE();
-
+        this.BISOFT_HUMANOID = new BISOFT_HUMANOID();
         /**
          * The "currently editing"/selected target ID for the VM.
          * Block events from any Blockly workspace are routed to this target.
@@ -1269,6 +1270,7 @@ class VirtualMachine extends EventEmitter {
         // worke block id
         console.log("Newval", e.newValue);
         console.log("name", e.name);
+        console.log(e);
 
         if (e.oldXml) {
             console.log(e.oldXml);
@@ -1365,6 +1367,49 @@ class VirtualMachine extends EventEmitter {
                 e.blockId
             );
             this.BISOFT_ACE.ACE_BRIGHTNESS_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
+        }
+
+        if (typeof e.name != "undefined" && e.name.substring(0, 4) == "ZING") {
+            // console.log("BOT_BLOCK_NAME:", e.name);
+            // console.log("WORKING_ZING", e.name.substring(0, 4));
+
+            console.log("ENTER TRY ME HERE");
+
+            let sessionData = JSON.parse(
+                sessionStorage.getItem("blockOnWorkSpace")
+            );
+
+            sessionData.push({
+                blockId: e.blockId,
+                blockName: e.name,
+                SelectedPort: e.newValue,
+            });
+
+            console.log("BLOCKABCD change oldItems", sessionData);
+
+            let jsonObject = sessionData.map(JSON.stringify);
+
+            console.log(jsonObject);
+
+            let uniqueSet = new Set(jsonObject);
+
+            console.log(uniqueSet);
+
+            uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+
+            console.log(sessionData, "BLOCKABCD change");
+
+            sessionStorage.setItem(
+                "blockOnWorkSpace",
+                JSON.stringify(uniqueArray)
+            );
+
+            this.BISOFT_HUMANOID.ZING_ALL_PORTS_MENU(
                 e.newValue,
                 e.name,
                 e.element,
