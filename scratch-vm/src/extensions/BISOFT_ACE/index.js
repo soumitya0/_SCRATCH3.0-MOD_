@@ -368,6 +368,14 @@ class BISOFT_ACE {
 
         console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
 
+        if (ACE_ALL_PORTS_Array.length == 0) {
+            ACE_ALL_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
         return ACE_ALL_PORTS_Array;
     }
 
@@ -560,6 +568,13 @@ class BISOFT_ACE {
         if (typeof name != "undefined" && name == "ACE_Input_Ports_Logic") {
         }
 
+        if (ACE_CHECK_LOGIC_PORTS_Array.length == 0) {
+            ACE_CHECK_LOGIC_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
         return ACE_CHECK_LOGIC_PORTS_Array;
     }
 
@@ -743,7 +758,13 @@ class BISOFT_ACE {
 
         if (typeof name != "undefined" && name == "ACE_Input_Ports_Logic") {
         }
-
+        if (ACE_ANALOG_PORTS_Array.length == 0) {
+            ACE_ANALOG_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
         return ACE_ANALOG_PORTS_Array;
     }
 
@@ -928,6 +949,16 @@ class BISOFT_ACE {
         //     ];
         // }
 
+        if (ACE_BRIGHTNESS_PORTS_Array.length == 0) {
+            ACE_BRIGHTNESS_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+            // console.log("Length ACE_SERVO_PORTS:", ACE_SERVO_PORTS_Array.length);
+            console.log("YES GOT IT");
+        }
+
         return ACE_BRIGHTNESS_PORTS_Array;
     }
 
@@ -1109,6 +1140,16 @@ class BISOFT_ACE {
         //         },
         //     ];
         // }
+
+        if (ACE_SERVO_PORTS_Array.length == 0) {
+            ACE_SERVO_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+            // console.log("Length ACE_SERVO_PORTS:", ACE_SERVO_PORTS_Array.length);
+            console.log("YES GOT IT");
+        }
 
         return ACE_SERVO_PORTS_Array;
     }
