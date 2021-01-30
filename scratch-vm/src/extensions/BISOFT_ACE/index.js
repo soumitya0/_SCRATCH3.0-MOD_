@@ -3,6 +3,8 @@ const BlockType = require("../../extension-support/block-type");
 const Cast = require("../../util/cast");
 const log = require("../../util/log");
 
+const getByteData = require("../../byteDataGenerate/byteDataGen");
+
 const ACEImg = require("./ACE.png");
 
 let ACE_ALL_PORTS_Array = [
@@ -203,6 +205,21 @@ class BISOFT_ACE {
                         }
                     );
                 }
+                case "ACE_SetBrighness": {
+                    ACE_ALL_PORTS_Array = ACE_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Servo_Motor": {
+                    ACE_ALL_PORTS_Array = ACE_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
             }
 
             if (data.blockName != "ACE_Output_Ports_Logic") {
@@ -273,6 +290,28 @@ class BISOFT_ACE {
                     {
                         text: "D2",
                         value: "D2",
+                    },
+                ];
+
+                ACE_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ACE_SERVO_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
                     },
                 ];
             }
@@ -396,6 +435,22 @@ class BISOFT_ACE {
                         }
                     );
                 }
+
+                case "ACE_SetBrighness": {
+                    ACE_CHECK_LOGIC_PORTS_Array = ACE_CHECK_LOGIC_PORTS_Array.filter(
+                        (LOGIC_PORTS_data, index) => {
+                            return LOGIC_PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Servo_Motor": {
+                    ACE_CHECK_LOGIC_PORTS_Array = ACE_CHECK_LOGIC_PORTS_Array.filter(
+                        (LOGIC_PORTS_data, index) => {
+                            return LOGIC_PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
             }
 
             if (data.blockName != "ACE_Input_Ports_Logic") {
@@ -465,6 +520,28 @@ class BISOFT_ACE {
                     {
                         text: "D2",
                         value: "D2",
+                    },
+                ];
+
+                ACE_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ACE_SERVO_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
                     },
                 ];
             }
@@ -550,6 +627,22 @@ class BISOFT_ACE {
                         }
                     );
                 }
+
+                case "ACE_Servo_Motor": {
+                    ACE_ANALOG_PORTS_Array = ACE_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_SetBrighness": {
+                    ACE_ANALOG_PORTS_Array = ACE_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
             }
 
             if (data.blockName != "ACE_Analog_Read_Port") {
@@ -621,6 +714,28 @@ class BISOFT_ACE {
                         value: "D2",
                     },
                 ];
+
+                ACE_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ACE_SERVO_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
             }
         });
 
@@ -644,6 +759,30 @@ class BISOFT_ACE {
             let blockName = data.blockName;
 
             switch (blockName) {
+                case "ACE_Output_Ports_Logic": {
+                    ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Input_Ports_Logic": {
+                    ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Analog_Read_Port": {
+                    ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
                 case "ACE_Servo_Motor": {
                     ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
                         (PORTS_data, index) => {
@@ -652,26 +791,142 @@ class BISOFT_ACE {
                     );
                 }
             }
+
+            if (data.blockName != "ACE_SetBrighness") {
+                ACE_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ACE_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ACE_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ACE_SERVO_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+            }
         });
 
         console.log("ACE_BRIGHTNESS_PORTS_Array", ACE_BRIGHTNESS_PORTS_Array);
 
-        let objCheck = sessionData.find(
-            (data) => data.blockName === "ACE_Servo_Motor"
-        );
+        // let objCheck = sessionData.find(
+        //     (data) => data.blockName === "ACE_Servo_Motor"
+        // );
 
-        if (typeof objCheck == "undefined") {
-            ACE_BRIGHTNESS_PORTS_Array = [
-                {
-                    text: "B1",
-                    value: "B1",
-                },
-                {
-                    text: "D1",
-                    value: "D1",
-                },
-            ];
-        }
+        // if (typeof objCheck == "undefined") {
+        //     ACE_BRIGHTNESS_PORTS_Array = [
+        //         {
+        //             text: "B1",
+        //             value: "B1",
+        //         },
+        //         {
+        //             text: "D1",
+        //             value: "D1",
+        //         },
+        //     ];
+        // }
 
         return ACE_BRIGHTNESS_PORTS_Array;
     }
@@ -695,25 +950,165 @@ class BISOFT_ACE {
                         }
                     );
                 }
+                case "ACE_Output_Ports_Logic": {
+                    ACE_SERVO_PORTS_Array = ACE_SERVO_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Input_Ports_Logic": {
+                    ACE_SERVO_PORTS_Array = ACE_SERVO_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_Analog_Read_Port": {
+                    ACE_SERVO_PORTS_Array = ACE_SERVO_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ACE_Servo_Motor") {
+                ACE_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+                ACE_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ACE_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ACE_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
             }
         });
 
-        let objCheck = sessionData.find(
-            (data) => data.blockName === "ACE_SetBrighness"
-        );
+        // let objCheck = sessionData.find(
+        //     (data) => data.blockName === "ACE_SetBrighness"
+        // );
 
-        if (typeof objCheck == "undefined") {
-            ACE_SERVO_PORTS_Array = [
-                {
-                    text: "B1",
-                    value: "B1",
-                },
-                {
-                    text: "D1",
-                    value: "D1",
-                },
-            ];
-        }
+        // if (typeof objCheck == "undefined") {
+        //     ACE_SERVO_PORTS_Array = [
+        //         {
+        //             text: "B1",
+        //             value: "B1",
+        //         },
+        //         {
+        //             text: "D1",
+        //             value: "D1",
+        //         },
+        //     ];
+        // }
 
         return ACE_SERVO_PORTS_Array;
     }
@@ -835,7 +1230,7 @@ class BISOFT_ACE {
             blockIconURI: ACEImg,
             blocks: [
                 {
-                    opcode: "setPortsLogic",
+                    opcode: "ACE_setPortsLogic",
                     blockType: "command",
                     text: "Set [ACE_Output_Ports_Logic]at Logic  [logic]",
                     arguments: {
@@ -852,7 +1247,7 @@ class BISOFT_ACE {
                     },
                 },
                 {
-                    opcode: "setBrighness",
+                    opcode: "ACE_setBrighness",
                     text: "set [ACE_SetBrighness]at  brightness [brightness]%",
                     blockType: "command",
                     arguments: {
@@ -871,7 +1266,7 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "setServoMotor",
+                    opcode: "ACE_setServoMotor",
                     text:
                         "set servo motor at [ACE_Servo_Motor] to [degree] degrees",
                     blockType: "command",
@@ -888,7 +1283,7 @@ class BISOFT_ACE {
                     },
                 },
                 {
-                    opcode: "checkLogicCondition",
+                    opcode: "ACE_checkLogicCondition",
                     text: "Port [ACE_Input_Ports_Logic] is [logic]",
                     blockType: "Boolean",
                     arguments: {
@@ -906,7 +1301,7 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "setAnalogRead",
+                    opcode: "ACE_setAnalogRead",
                     text: "Analog read of port [ACE_Analog_Read_Port]",
                     blockType: "reporter",
                     arguments: {
@@ -919,11 +1314,11 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "ultrasonicSensor",
-                    text: "ultrasonic sensor at port [ports]",
+                    opcode: "ACE_ultrasonicSensor",
+                    text: "ultrasonic sensor at port [ACE_ultrasonicPort]",
                     blockType: "reporter",
                     arguments: {
-                        ports: {
+                        ACE_ultrasonicPort: {
                             type: "string",
                             menu: "ultraSonic_ports",
                             defaultValue: "B",
@@ -932,11 +1327,11 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "colorSensor",
-                    text: "[color] of 4-in 1 sensor is",
+                    opcode: "ACE_colorSensor",
+                    text: "[ACE_colorSensorPort] of 4-in 1 sensor is",
                     blockType: "reporter",
                     arguments: {
-                        color: {
+                        ACE_colorSensorPort: {
                             type: "string",
                             menu: "color",
                             defaultValue: "red",
@@ -945,11 +1340,11 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "setLEDColor",
+                    opcode: "ACE_setLEDColor",
                     blockType: "command",
-                    text: " Set [LEDPort] LED at brightness [brightness]%",
+                    text: " Set [AEC_LEDPort] LED at brightness [brightness]%",
                     arguments: {
-                        LEDPort: {
+                        AEC_LEDPort: {
                             type: "string",
                             menu: "LEDColor",
                             defaultValue: "red",
@@ -964,11 +1359,11 @@ class BISOFT_ACE {
                 },
 
                 {
-                    opcode: "setPlayTone",
+                    opcode: "ACE_setPlayTone",
                     blockType: "command",
-                    text: "Play Tone [tone]",
+                    text: "Play Tone [ACE_setPlayTonePorts]",
                     arguments: {
-                        tone: {
+                        ACE_setPlayTonePorts: {
                             type: "string",
                             defaultValue: "Sa",
                             menu: "playTone",
@@ -1024,6 +1419,69 @@ class BISOFT_ACE {
                 },
             },
         };
+    }
+
+    ACE_setPortsLogic(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_Output_Ports_Logic);
+
+        getByteData(args.ACE_Output_Ports_Logic, "DIGITAL_OUTPUT");
+    }
+
+    ACE_setBrighness(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_SetBrighness);
+
+        getByteData(args.ACE_SetBrighness, "PWM");
+    }
+
+    ACE_setServoMotor(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_Servo_Motor);
+        getByteData(args.ACE_Servo_Motor, "PWM");
+    }
+
+    ACE_checkLogicCondition(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_Input_Ports_Logic);
+
+        getByteData(args.ACE_Input_Ports_Logic, "I");
+    }
+
+    ACE_setAnalogRead(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_Analog_Read_Port);
+
+        getByteData(args.ACE_Analog_Read_Port, "A");
+    }
+
+    ACE_ultrasonicSensor(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_ultrasonicPort);
+    }
+
+    ACE_colorSensor(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_colorSensorPort);
+    }
+
+    ACE_setLEDColor(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.AEC_LEDPort);
+    }
+
+    ACE_setPlayTone(args) {
+        console.log("ARGS: ", args);
+
+        console.log("CLICK: ", args.ACE_setPlayTonePorts);
     }
 }
 
