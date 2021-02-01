@@ -56,29 +56,29 @@ import humanoidDeviceExtension from "./humanoid/humanoidDeviceExtension.png";
 export default [
     // 【★　Added  BiBox block 】
     // tern
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="BIBOX TERN"
-                description="Name for the 'TERN' extension"
-                id="gui.extension.tern.name"
-            />
-        ),
-        extensionId: "tern", // these extensionId will match with the id that you have give in  scratch-vm bisoftTERN
-        iconURL: ternIconURL,
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="BIBOX TERN"
+    //             description="Name for the 'TERN' extension"
+    //             id="gui.extension.tern.name"
+    //         />
+    //     ),
+    //     extensionId: "tern", // these extensionId will match with the id that you have give in  scratch-vm bisoftTERN
+    //     iconURL: ternIconURL,
 
-        // description: (
-        //     <FormattedMessage
-        //         defaultMessage="Bisoft TERN Description"
-        //         description="Description for the 'TERN' extension"
-        //         id="gui.extension.tern.description"
-        //     />
-        // ),
-        featured: true,
-        disabled: false,
-        bluetoothRequired: true,
-        internetConnectionRequired: true,
-    },
+    //     // description: (
+    //     //     <FormattedMessage
+    //     //         defaultMessage="Bisoft TERN Description"
+    //     //         description="Description for the 'TERN' extension"
+    //     //         id="gui.extension.tern.description"
+    //     //     />
+    //     // ),
+    //     featured: true,
+    //     disabled: false,
+    //     bluetoothRequired: true,
+    //     internetConnectionRequired: true,
+    // },
 
     // ACE
     {
