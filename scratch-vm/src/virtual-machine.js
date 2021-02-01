@@ -1308,35 +1308,35 @@ class VirtualMachine extends EventEmitter {
                 JSON.stringify(uniqueArray)
             );
 
-            this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
+            // this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
 
-            this.BISOFT_TERN.BRIGHTNESS_PORTS(
-                e.newValue,
-                e.name,
-                e.element,
-                e.blockId
-            );
+            // this.BISOFT_TERN.BRIGHTNESS_PORTS(
+            //     e.newValue,
+            //     e.name,
+            //     e.element,
+            //     e.blockId
+            // );
 
-            this.BISOFT_TERN.SERVO_PORTS(
-                e.newValue,
-                e.name,
-                e.element,
-                e.blockId
-            );
+            // this.BISOFT_TERN.SERVO_PORTS(
+            //     e.newValue,
+            //     e.name,
+            //     e.element,
+            //     e.blockId
+            // );
 
-            this.BISOFT_TERN.CHECK_LOGIC_PORTS_MENU(
-                e.newValue,
-                e.name,
-                e.element,
-                e.blockId
-            );
+            // this.BISOFT_TERN.CHECK_LOGIC_PORTS_MENU(
+            //     e.newValue,
+            //     e.name,
+            //     e.element,
+            //     e.blockId
+            // );
 
-            this.BISOFT_TERN.ANALOG_PORTS(
-                e.newValue,
-                e.name,
-                e.element,
-                e.blockId
-            );
+            // this.BISOFT_TERN.ANALOG_PORTS(
+            //     e.newValue,
+            //     e.name,
+            //     e.element,
+            //     e.blockId
+            // );
 
             // BISOFT_ACE
             this.BISOFT_ACE.ACE_ALL_PORTS_MENU(
