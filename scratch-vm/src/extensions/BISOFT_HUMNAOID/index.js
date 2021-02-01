@@ -4,6 +4,8 @@ const Cast = require("../../util/cast");
 const log = require("../../util/log");
 const HUMANOIDImg = require("./humanoidDeviceExtension.png");
 
+const getByteData = require("../../byteDataGenerate/byteDataGen");
+
 let ZING_ALL_PORTS_Array = [
     {
         text: "A1",
@@ -962,7 +964,7 @@ class BISOFT_HUMANOID {
             blockIconURI: HUMANOIDImg,
             blocks: [
                 {
-                    opcode: "setPortsLogic",
+                    opcode: "ZING_setPortsLogic",
                     blockType: "command",
                     text: "Set [ZING_SetDgitalports]at Logic  [logic]",
                     arguments: {
@@ -979,7 +981,7 @@ class BISOFT_HUMANOID {
                     },
                 },
                 {
-                    opcode: "setBrightness",
+                    opcode: "ZING_setBrightness",
                     text:
                         "set [ZING_BrightnesPorts]at  brightness [brightness]%",
                     blockType: "command",
@@ -998,7 +1000,7 @@ class BISOFT_HUMANOID {
                     },
                 },
                 {
-                    opcode: "moveMotor",
+                    opcode: "ZING_moveMotor",
                     text: "move [ZING_action]",
                     blockType: "command",
                     arguments: {
@@ -1015,7 +1017,7 @@ class BISOFT_HUMANOID {
                 },
 
                 {
-                    opcode: "setServoMotor",
+                    opcode: "ZING_setServoMotor",
                     text:
                         "set servo motor at [ZING_ServoPorts] to [degree] degrees",
                     blockType: "command",
@@ -1032,7 +1034,7 @@ class BISOFT_HUMANOID {
                     },
                 },
                 {
-                    opcode: "checkLogicCondition",
+                    opcode: "ZING_checkLogicCondition",
                     text: "Port [ZING_InputPorts] is [logic]",
                     blockType: "Boolean",
                     arguments: {
@@ -1050,7 +1052,7 @@ class BISOFT_HUMANOID {
                 },
 
                 {
-                    opcode: "setAnalogRead",
+                    opcode: "ZING_setAnalogRead",
                     text: "Analog read of port [ZING_AnalogRead]",
                     blockType: "reporter",
                     arguments: {
@@ -1063,7 +1065,7 @@ class BISOFT_HUMANOID {
                 },
 
                 {
-                    opcode: "ultrasonicSensor",
+                    opcode: "ZING_ultrasonicSensor",
                     text:
                         "ultrasonic sensor at port [ZING_ultrasonicSensorPorts]",
                     blockType: "reporter",
@@ -1077,7 +1079,7 @@ class BISOFT_HUMANOID {
                 },
 
                 {
-                    opcode: "colorSensor",
+                    opcode: "ZING_colorSensor",
                     text: "[ZING_ColorPort] of 4-in 1 sensor is",
                     blockType: "reporter",
                     arguments: {
@@ -1090,7 +1092,7 @@ class BISOFT_HUMANOID {
                 },
 
                 {
-                    opcode: "setLEDColor",
+                    opcode: "ZING_setPlayAction",
                     blockType: "command",
                     text: " Play action [ZING_PlayActionPort]",
                     arguments: {
@@ -1151,6 +1153,49 @@ class BISOFT_HUMANOID {
                 },
             },
         };
+    }
+
+    ZING_setPortsLogic(args) {
+        console.log("HIT ME", args);
+
+        getByteData(args.ZING_SetDgitalports, "DIGITAL_OUTPUT");
+    }
+
+    ZING_setBrightness(args) {
+        console.log("HIT ME", args);
+
+        getByteData(args.ZING_BrightnesPorts, "PWM");
+    }
+
+    ZING_checkLogicCondition(args) {
+        console.log("HIT ME", args);
+
+        getByteData(args.ZING_InputPorts, "I");
+    }
+
+    ZING_setAnalogRead(args) {
+        console.log("HIT ME", args);
+
+        getByteData(args.ZING_AnalogRead, "A");
+    }
+
+    ZING_moveMotor(args) {
+        console.log("HIT ME", args);
+    }
+
+    ZING_setServoMotor(args) {
+        console.log("HIT ME", args);
+    }
+
+    ZING_ultrasonicSensor(args) {
+        console.log("HIT ME", args);
+    }
+
+    ZING_colorSensor(args) {
+        console.log("HIT ME", args);
+    }
+    ZING_setPlayAction(args) {
+        console.log("HIT ME", args);
     }
 }
 
