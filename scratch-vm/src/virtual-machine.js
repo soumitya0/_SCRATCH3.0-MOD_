@@ -1291,21 +1291,32 @@ class VirtualMachine extends EventEmitter {
 
             console.log("BLOCKABCD change oldItems", sessionData);
 
-            let jsonObject = sessionData.map(JSON.stringify);
+            // let jsonObject = sessionData.map(JSON.stringify);
 
-            console.log(jsonObject);
+            // console.log(jsonObject);
 
-            let uniqueSet = new Set(jsonObject);
+            // let uniqueSet = new Set(jsonObject);
 
-            console.log(uniqueSet);
+            // console.log(uniqueSet);
 
-            uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+            // uniqueArray = Array.from(uniqueSet).map(JSON.parse);
 
-            console.log(sessionData, "BLOCKABCD change");
+            // console.log(sessionData, "BLOCKABCD change");
+
+            let newArray = [];
+            let uniqueObject = {};
+            for (let i in sessionData) {
+                objTitle = sessionData[i]["blockId"];
+                uniqueObject[objTitle] = sessionData[i];
+            }
+
+            for (i in uniqueObject) {
+                newArray.push(uniqueObject[i]);
+            }
 
             sessionStorage.setItem(
                 "blockOnWorkSpace",
-                JSON.stringify(uniqueArray)
+                JSON.stringify(newArray)
             );
 
             // this.BISOFT_TERN.ALL_PORTS_MENU(e.newValue, e.name, e.element);
