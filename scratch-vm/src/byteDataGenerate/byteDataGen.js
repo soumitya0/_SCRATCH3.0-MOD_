@@ -32,10 +32,7 @@ const getByteData = (port, portType) => {
 
     console.log("ByteDataCheck:", Object.keys(myObj)[0]);
 
-    if (
-        Object.keys(myObj)[0] != "All Ports Are used" &&
-        Object.keys(myObj)[0] != "SELECT"
-    ) {
+    if (Object.keys(myObj)[0] != "All Ports Are used") {
         sessionStorage.setItem("myObj", JSON.stringify(oldItems));
     }
 
@@ -111,6 +108,10 @@ generateByteData = () => {
             }
             case "A": {
                 bytesObject[Object.keys(data)[0]] = "A";
+                break;
+            }
+            case "U": {
+                bytesObject[Object.keys(data)[0]] = "U";
                 break;
             }
         }

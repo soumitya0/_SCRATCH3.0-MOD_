@@ -1297,7 +1297,7 @@ class BISOFT_ACE {
         let sessionData = JSON.parse(
             sessionStorage.getItem("blockOnWorkSpace")
         );
-        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+        console.log("sessionData ACE_ULTRASONIC_PORTS", sessionData);
 
         if (sessionData.length == 0) {
             ACE_ULTRASONIC_PORTS_Array = [
@@ -1318,8 +1318,14 @@ class BISOFT_ACE {
 
             switch (blockName) {
                 case "ACE_Output_Ports_Logic": {
+                    console.log("SWITCH:ACE_Output_Ports_Logic");
+
                     ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
                         (PORTS_data, index) => {
+                            console.log("PORTS_data.value", PORTS_data.value);
+
+                            console.log("data.SelectedPort", data.SelectedPort);
+
                             if (PORTS_data.value != null) {
                                 return (
                                     PORTS_data.value !=
@@ -1328,8 +1334,12 @@ class BISOFT_ACE {
                             }
                         }
                     );
+
+                    break;
                 }
                 case "ACE_SetBrighness": {
+                    console.log("SWITCH:ACE_SetBrighness");
+
                     ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
                         (PORTS_data, index) => {
                             if (PORTS_data.value != null) {
@@ -1829,7 +1839,9 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_Output_Ports_Logic);
 
-        getByteData(args.ACE_Output_Ports_Logic, "DIGITAL_OUTPUT");
+        if (args.ACE_Output_Ports_Logic != "SELECT") {
+            getByteData(args.ACE_Output_Ports_Logic, "DIGITAL_OUTPUT");
+        }
     }
 
     ACE_setBrighness(args) {
@@ -1837,14 +1849,19 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_SetBrighness);
 
-        getByteData(args.ACE_SetBrighness, "PWM");
+        if (args.ACE_SetBrighness != "SELECT") {
+            getByteData(args.ACE_SetBrighness, "PWM");
+        }
     }
 
     ACE_setServoMotor(args) {
         console.log("ARGS: ", args);
 
         console.log("CLICK: ", args.ACE_Servo_Motor);
-        getByteData(args.ACE_Servo_Motor, "PWM");
+
+        if (args.ACE_Servo_Motor != "SELECT") {
+            getByteData(args.ACE_Servo_Motor, "PWM");
+        }
     }
 
     ACE_checkLogicCondition(args) {
@@ -1852,7 +1869,9 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_Input_Ports_Logic);
 
-        getByteData(args.ACE_Input_Ports_Logic, "I");
+        if (args.ACE_Input_Ports_Logic != "SELECT") {
+            getByteData(args.ACE_Input_Ports_Logic, "I");
+        }
     }
 
     ACE_setAnalogRead(args) {
@@ -1860,7 +1879,9 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_Analog_Read_Port);
 
-        getByteData(args.ACE_Analog_Read_Port, "A");
+        if (args.ACE_Analog_Read_Port != "SELECT") {
+            getByteData(args.ACE_Analog_Read_Port, "A");
+        }
     }
 
     ACE_ultrasonicSensor(args) {
@@ -1868,8 +1889,11 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_ultrasonicPort);
 
-        if (args.ACE_ultrasonicPort != "SELECT") {
-            getByteData(args.ACE_ultrasonicPort + "1", "A");
+        if (
+            args.ACE_ultrasonicPort != "SELECT" &&
+            args.ACE_ultrasonicPort != "All Ports Are used"
+        ) {
+            getByteData(args.ACE_ultrasonicPort + "1", "U");
         }
 
         // getByteData("D1", "A");
