@@ -139,6 +139,19 @@ let ACE_SERVO_PORTS_Array = [
         value: "D1",
     },
 ];
+
+let ACE_ULTRASONIC_PORTS_Array = [
+    {
+        text: "B",
+        value: "B",
+    },
+
+    {
+        text: "D",
+        value: "D",
+    },
+];
+
 class BISOFT_ACE {
     constructor(runtime) {
         this.runtime = runtime;
@@ -217,6 +230,19 @@ class BISOFT_ACE {
                     ACE_ALL_PORTS_Array = ACE_ALL_PORTS_Array.filter(
                         (PORTS_data, index) => {
                             return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_ultrasonicPort": {
+                    ACE_ALL_PORTS_Array = ACE_ALL_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value.substring(0, 1) !=
+                                    data.SelectedPort
+                                );
+                            }
                         }
                     );
                 }
@@ -312,6 +338,18 @@ class BISOFT_ACE {
                     {
                         text: "D1",
                         value: "D1",
+                    },
+                ];
+
+                ACE_ULTRASONIC_PORTS_Array = [
+                    {
+                        text: "B",
+                        value: "B",
+                    },
+
+                    {
+                        text: "D",
+                        value: "D",
                     },
                 ];
             }
@@ -459,6 +497,19 @@ class BISOFT_ACE {
                         }
                     );
                 }
+
+                case "ACE_ultrasonicPort": {
+                    ACE_CHECK_LOGIC_PORTS_Array = ACE_CHECK_LOGIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value.substring(0, 1) !=
+                                    data.SelectedPort
+                                );
+                            }
+                        }
+                    );
+                }
             }
 
             if (data.blockName != "ACE_Input_Ports_Logic") {
@@ -550,6 +601,18 @@ class BISOFT_ACE {
                     {
                         text: "D1",
                         value: "D1",
+                    },
+                ];
+
+                ACE_ULTRASONIC_PORTS_Array = [
+                    {
+                        text: "B",
+                        value: "B",
+                    },
+
+                    {
+                        text: "D",
+                        value: "D",
                     },
                 ];
             }
@@ -658,6 +721,19 @@ class BISOFT_ACE {
                         }
                     );
                 }
+
+                case "ACE_ultrasonicPort": {
+                    ACE_ANALOG_PORTS_Array = ACE_ANALOG_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value.substring(0, 1) !=
+                                    data.SelectedPort
+                                );
+                            }
+                        }
+                    );
+                }
             }
 
             if (data.blockName != "ACE_Analog_Read_Port") {
@@ -751,6 +827,18 @@ class BISOFT_ACE {
                         value: "D1",
                     },
                 ];
+
+                ACE_ULTRASONIC_PORTS_Array = [
+                    {
+                        text: "B",
+                        value: "B",
+                    },
+
+                    {
+                        text: "D",
+                        value: "D",
+                    },
+                ];
             }
         });
 
@@ -808,6 +896,21 @@ class BISOFT_ACE {
                     ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
                         (PORTS_data, index) => {
                             return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_ultrasonicPort": {
+                    ACE_BRIGHTNESS_PORTS_Array = ACE_BRIGHTNESS_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            // if
+
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value.substring(0, 1) !=
+                                    data.SelectedPort
+                                );
+                            }
                         }
                     );
                 }
@@ -927,6 +1030,18 @@ class BISOFT_ACE {
                         value: "D1",
                     },
                 ];
+
+                ACE_ULTRASONIC_PORTS_Array = [
+                    {
+                        text: "B",
+                        value: "B",
+                    },
+
+                    {
+                        text: "D",
+                        value: "D",
+                    },
+                ];
             }
         });
 
@@ -1001,6 +1116,19 @@ class BISOFT_ACE {
                     ACE_SERVO_PORTS_Array = ACE_SERVO_PORTS_Array.filter(
                         (PORTS_data, index) => {
                             return PORTS_data.value != data.SelectedPort;
+                        }
+                    );
+                }
+
+                case "ACE_ultrasonicPort": {
+                    ACE_SERVO_PORTS_Array = ACE_SERVO_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value.substring(0, 1) !=
+                                    data.SelectedPort
+                                );
+                            }
                         }
                     );
                 }
@@ -1121,6 +1249,17 @@ class BISOFT_ACE {
                         value: "D1",
                     },
                 ];
+                ACE_ULTRASONIC_PORTS_Array = [
+                    {
+                        text: "B",
+                        value: "B",
+                    },
+
+                    {
+                        text: "D",
+                        value: "D",
+                    },
+                ];
             }
         });
 
@@ -1154,6 +1293,243 @@ class BISOFT_ACE {
         return ACE_SERVO_PORTS_Array;
     }
 
+    ACE_ULTRASONIC_PORTS(value, name, element, blockId) {
+        let sessionData = JSON.parse(
+            sessionStorage.getItem("blockOnWorkSpace")
+        );
+        console.log("sessionData ACE_ALL_PORTS_Array", sessionData);
+
+        if (sessionData.length == 0) {
+            ACE_ULTRASONIC_PORTS_Array = [
+                {
+                    text: "B",
+                    value: "B",
+                },
+
+                {
+                    text: "D",
+                    value: "D",
+                },
+            ];
+        }
+
+        sessionData.map((data, index) => {
+            let blockName = data.blockName;
+
+            switch (blockName) {
+                case "ACE_Output_Ports_Logic": {
+                    ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value !=
+                                    data.SelectedPort.substring(0, 1)
+                                );
+                            }
+                        }
+                    );
+                }
+                case "ACE_SetBrighness": {
+                    ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value !=
+                                    data.SelectedPort.substring(0, 1)
+                                );
+                            }
+                        }
+                    );
+                }
+
+                case "ACE_Servo_Motor": {
+                    ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value !=
+                                    data.SelectedPort.substring(0, 1)
+                                );
+                            }
+                        }
+                    );
+                }
+
+                case "ACE_Input_Ports_Logic": {
+                    ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value !=
+                                    data.SelectedPort.substring(0, 1)
+                                );
+                            }
+                        }
+                    );
+                }
+
+                case "ACE_Analog_Read_Port": {
+                    ACE_ULTRASONIC_PORTS_Array = ACE_ULTRASONIC_PORTS_Array.filter(
+                        (PORTS_data, index) => {
+                            if (PORTS_data.value != null) {
+                                return (
+                                    PORTS_data.value !=
+                                    data.SelectedPort.substring(0, 1)
+                                );
+                            }
+                        }
+                    );
+                }
+            }
+
+            if (data.blockName != "ACE_ULTRASONIC_PORTS_Array") {
+                ACE_CHECK_LOGIC_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ACE_ANALOG_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+
+                ACE_BRIGHTNESS_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ACE_SERVO_PORTS_Array = [
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                ];
+
+                ACE_ALL_PORTS_Array = [
+                    {
+                        text: "A1",
+                        value: "A1",
+                    },
+                    {
+                        text: "A2",
+                        value: "A2",
+                    },
+                    {
+                        text: "B1",
+                        value: "B1",
+                    },
+                    {
+                        text: "B2",
+                        value: "B2",
+                    },
+                    {
+                        text: "C1",
+                        value: "C1",
+                    },
+                    {
+                        text: "C2",
+                        value: "C2",
+                    },
+                    {
+                        text: "D1",
+                        value: "D1",
+                    },
+                    {
+                        text: "D2",
+                        value: "D2",
+                    },
+                ];
+            }
+        });
+        // if (typeof name != "undefined" && name == "ACE_Output_Ports_Logic") {
+        //     console.log("COME INSIDE ARRAY3", ACE_ALL_PORTS_Array);
+
+        //     console.log("VALUE 777", value);
+        // }
+
+        // console.log("COME INSIDE ARRAY2", ACE_ALL_PORTS_Array);
+
+        if (ACE_ULTRASONIC_PORTS_Array.length == 0) {
+            ACE_ULTRASONIC_PORTS_Array = [
+                {
+                    text: "All Ports Are used",
+                },
+            ];
+        }
+
+        return ACE_ULTRASONIC_PORTS_Array;
+    }
+
     get LOGIC() {
         return [
             {
@@ -1163,20 +1539,6 @@ class BISOFT_ACE {
             {
                 text: "LOW",
                 value: "LOW",
-            },
-        ];
-    }
-
-    get ULTRASONIC_PORTS() {
-        return [
-            {
-                text: "B",
-                value: "B",
-            },
-
-            {
-                text: "D",
-                value: "D",
             },
         ];
     }
@@ -1362,7 +1724,7 @@ class BISOFT_ACE {
                         ACE_ultrasonicPort: {
                             type: "string",
                             menu: "ultraSonic_ports",
-                            defaultValue: "B",
+                            defaultValue: "SELECT",
                         },
                     },
                 },
@@ -1443,7 +1805,7 @@ class BISOFT_ACE {
                 },
                 ultraSonic_ports: {
                     acceptReporters: false,
-                    items: this.ULTRASONIC_PORTS,
+                    items: "ACE_ULTRASONIC_PORTS",
                 },
                 color: {
                     acceptReporters: false,
@@ -1505,6 +1867,9 @@ class BISOFT_ACE {
         console.log("ARGS: ", args);
 
         console.log("CLICK: ", args.ACE_ultrasonicPort);
+
+        // getByteData("B1", "A");
+        // getByteData("D1", "A");
     }
 
     ACE_colorSensor(args) {

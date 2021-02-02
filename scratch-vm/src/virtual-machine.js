@@ -1383,6 +1383,12 @@ class VirtualMachine extends EventEmitter {
                 e.element,
                 e.blockId
             );
+            this.BISOFT_ACE.ACE_ULTRASONIC_PORTS(
+                e.newValue,
+                e.name,
+                e.element,
+                e.blockId
+            );
         }
 
         if (typeof e.name != "undefined" && e.name.substring(0, 4) == "ZING") {
