@@ -30,7 +30,9 @@ const getByteData = (port, portType) => {
 
     oldItems.push(myObj);
 
-    sessionStorage.setItem("myObj", JSON.stringify(oldItems));
+    if (Object.keys(myObj)[0] != "All Ports Are used") {
+        sessionStorage.setItem("myObj", JSON.stringify(oldItems));
+    }
 
     generateByteData();
 };
@@ -71,6 +73,7 @@ generateByteData = () => {
 
         console.log("KEY: ", Object.keys(data)[0]);
         console.log("Value: ", Object.values(data)[0]);
+        console.log("bytesObject:", bytesObject);
 
         switch (Object.values(data)[0]) {
             case "DIGITAL_OUTPUT": {
@@ -114,6 +117,30 @@ generateByteData = () => {
         Object.values(bytesObject),
         Array(37).fill("O")
     );
+
+    StackData.map((data, index) => {
+        // console.log(data);
+
+        console.log("KEY: ", Object.keys(data)[0]);
+        console.log("Value: ", Object.values(data)[0]);
+        console.log("bytesObject:", bytesObject);
+
+        switch (Object.values(data)[0]) {
+            case "G": {
+                finalByteData[32] = "G";
+                break;
+            }
+            case "L": {
+                finalByteData[31] = "L";
+                break;
+            }
+            case "B": {
+                finalByteData[30] = "B";
+                break;
+            }
+        }
+    });
+
     console.log(finalByteData, "finally Data .........................");
 };
 

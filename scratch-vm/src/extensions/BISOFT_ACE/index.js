@@ -1868,7 +1868,7 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_ultrasonicPort);
 
-        // getByteData("B1", "A");
+        getByteData(args.ACE_ultrasonicPort + "1", "A");
         // getByteData("D1", "A");
     }
 
@@ -1876,18 +1876,22 @@ class BISOFT_ACE {
         console.log("ARGS: ", args);
 
         console.log("CLICK: ", args.ACE_colorSensorPort);
+        getByteData(args.ACE_colorSensorPort, "G");
     }
 
     ACE_setLEDColor(args) {
         console.log("ARGS: ", args);
 
         console.log("CLICK: ", args.AEC_LEDPort);
+        getByteData(args.AEC_LEDPort, "L");
     }
 
     ACE_setPlayTone(args) {
         console.log("ARGS: ", args);
 
         console.log("CLICK: ", args.ACE_setPlayTonePorts);
+
+        getByteData(args.ACE_setPlayTonePorts, "B");
     }
 }
 
