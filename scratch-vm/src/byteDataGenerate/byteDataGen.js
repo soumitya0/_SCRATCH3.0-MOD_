@@ -30,7 +30,12 @@ const getByteData = (port, portType) => {
 
     oldItems.push(myObj);
 
-    if (Object.keys(myObj)[0] != "All Ports Are used") {
+    console.log("ByteDataCheck:", Object.keys(myObj)[0]);
+
+    if (
+        Object.keys(myObj)[0] != "All Ports Are used" &&
+        Object.keys(myObj)[0] != "SELECT"
+    ) {
         sessionStorage.setItem("myObj", JSON.stringify(oldItems));
     }
 

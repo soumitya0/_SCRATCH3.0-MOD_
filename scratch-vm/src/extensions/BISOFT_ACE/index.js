@@ -1868,7 +1868,10 @@ class BISOFT_ACE {
 
         console.log("CLICK: ", args.ACE_ultrasonicPort);
 
-        getByteData(args.ACE_ultrasonicPort + "1", "A");
+        if (args.ACE_ultrasonicPort != "SELECT") {
+            getByteData(args.ACE_ultrasonicPort + "1", "A");
+        }
+
         // getByteData("D1", "A");
     }
 
