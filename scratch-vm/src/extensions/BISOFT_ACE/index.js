@@ -1635,7 +1635,7 @@ class BISOFT_ACE {
     getInfo() {
         return {
             id: "ace",
-            name: "ACE",
+            name: "PLAYCOMPUTER",
             color1: "#03506f",
             color2: "#03506f",
 

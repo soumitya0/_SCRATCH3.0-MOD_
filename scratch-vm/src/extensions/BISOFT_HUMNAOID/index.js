@@ -956,7 +956,7 @@ class BISOFT_HUMANOID {
     getInfo() {
         return {
             id: "humanoid",
-            name: "HUMANOID",
+            name: "ZING",
             color1: "#f76a8c",
             color2: "#f76a8c",
 

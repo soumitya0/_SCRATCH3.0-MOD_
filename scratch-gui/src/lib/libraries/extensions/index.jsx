@@ -84,8 +84,8 @@ export default [
     {
         name: (
             <FormattedMessage
-                defaultMessage="BIBOX ACE"
-                description="Name for the 'ACE' extension"
+                defaultMessage="PLAYCOMPUTER"
+                description="Name for the 'PLAYCOMPUTER' extension"
                 id="gui.extension.ace.name"
             />
         ),
@@ -110,8 +110,8 @@ export default [
     {
         name: (
             <FormattedMessage
-                defaultMessage="BIBOX HUMANOID"
-                description="Name for the 'HUMANOID' extension"
+                defaultMessage="ZING"
+                description="Name for the 'ZING' extension"
                 id="gui.extension.humanoid.name"
             />
         ),
